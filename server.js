@@ -94,11 +94,10 @@ function autoPages() {
   for (let i = 0; i < hosts.length; i++) {
     const host = hosts[i];
     const dominio = host.path;
-    const link = path.join(__dirname, "src", "pages", dominio) + ".html";
-    const fileLink = host.fileLink;
+    const file = host.file;
+    const link = path.join(__dirname, "src", "pages", file);
     console.log("SISTEMA <HOST> <PATH>: " + dominio);
     console.log("SISTEMA <HOST> <FILE>: " + link);
-    console.log("SISTEMA <HOST> <ONLINE FILE>: " + fileLink);
 
     app.get(dominio, (req, res) => {
       console.log("SISTEMA <OBTER> <SITE>: " + req.url);

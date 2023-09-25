@@ -11,13 +11,13 @@ const path_pages = files2 + "pages/";
 const forbiddenFilePath = path.join(path_pages, "forbidden.html");
 const notFoundFilePath = path.join(path_pages, "not-found.html");
 const storagePages = multer.diskStorage({
-  destination: (req, file, cb) => {
+  destination: (cb) => {
     // Especifique o diretório onde os arquivos serão salvos
     const destinationPath = __dirname + "/src/pages";
     fs.mkdirSync(destinationPath, { recursive: true }); // Cria a pasta 'src/pages' se não existir
     cb(null, destinationPath);
   },
-  filename: (req, file, cb) => {
+  filename: (file, cb) => {
     // Use um nome de arquivo único baseado no nome original do arquivo
     const uniqueFilename = file.originalname;
     cb(null, uniqueFilename);

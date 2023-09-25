@@ -4,11 +4,25 @@ const fs = require("fs");
 const path = require("path");
 const bodyParser = require("body-parser");
 const axios = require("axios");
+const multer = require("multer");
 
 const files2 = __dirname + "/src/";
 const path_pages = files2 + "pages/";
 const forbiddenFilePath = path.join(path_pages, "forbidden.html");
 const notFoundFilePath = path.join(path_pages, "not-found.html");
+const storagePages = multer.diskStorage({
+  destination: (req, file, cb) => {
+    // Especifique o diretório onde os arquivos serão salvos
+    const destinationPath = "./src/pages";
+    fs.mkdirSync(destinationPath, { recursive: true }); // Cria a pasta 'src/pages' se não existir
+    cb(null, destinationPath);
+  },
+  filename: (req, file, cb) => {
+    // Use um nome de arquivo único baseado na data atual e no nome original do arquivo
+    const uniqueFilename = file.originalname;
+    cb(null, uniqueFilename);
+  },
+});
 
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());

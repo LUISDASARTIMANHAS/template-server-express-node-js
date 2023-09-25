@@ -11,13 +11,13 @@ const path_pages = files2 + "pages/";
 const forbiddenFilePath = path.join(path_pages, "forbidden.html");
 const notFoundFilePath = path.join(path_pages, "not-found.html");
 const storagePages = multer.diskStorage({
-  destination: (cb) => {
+  destination: (req, file, cb) => {
     // Especifique o diretório onde os arquivos serão salvos
-    const destinationPath = __dirname + "/src/pages";
+    const destinationPath = path.join(__dirname, "src", "pages");
     fs.mkdirSync(destinationPath, { recursive: true }); // Cria a pasta 'src/pages' se não existir
     cb(null, destinationPath);
   },
-  filename: (file, cb) => {
+  filename: (req, file, cb) => {
     // Use um nome de arquivo único baseado no nome original do arquivo
     const uniqueFilename = file.originalname;
     cb(null, uniqueFilename);
@@ -37,14 +37,14 @@ router.get("/host=data", (req, res) => {
 
 // rota para add arquivo a hospedagem automatica 
 const upload = multer({
-  storage: storagePages,
-  limits: {
-    fileSize: 1024 * 1024 * 256, // Limite de 256 megabytes (ajuste conforme necessário)
-  },
+  storage: storagePages
+  // limits: {
+  //   fileSize: 1024 * 1024 * 256, // Limite de 256 megabytes (ajuste conforme necessário)
+  // },
 });
 
 // rota para add hospedagem
-router.post("/host", upload.single("file"), async (req, res) => {
+router.post("/host", upload.single("file"), (req, res) => {
   console.log("SISTEMA <ENVIAR>: " + req.url);
   console.log("SISTEMA <PAYLOAD>: " + JSON.stringify(req.body, null, 2));
 

@@ -1,79 +1,79 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
   <head>
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=0.7" />
-    <link rel="icon" href="https://cdn.glitch.global/11269fa9-8ee1-4ee3-b2e8-df916e2b43b7/servidor-icon.png?v=1691626966862" />
+    <link
+      rel="icon"
+      href="https://cdn.glitch.global/11269fa9-8ee1-4ee3-b2e8-df916e2b43b7/servidor-icon.png?v=1691626966862"
+    />
     <links></links>
-    <link rel="stylesheet" href="css/style.css">
-    
-  <title>PINGOBRAS SERVER GERAL HOST</title>
-  </head>  
+    <link rel="stylesheet" href="css/style.css" />
+
+    <title>PINGOBRAS SERVER GERAL HOST</title>
+  </head>
   <body>
     <header>
       <h1>Sistema de Host do Servidor</h1>
     </header>
     <div class="site-altura">
       <div class="conteudo" role="main">
-  <main>
-    <h2>Bem-vindo(a) ao Sistema de Hosteamento de Arquivos!</h2>
-    <form action="/host" method="POST">
-       <label>Path do Arquivo</label>
-      <input type="text" 
-             name="path"
-             placeholder="/minha_pagina" 
-             required>
-      
-      <label>Link do Arquivo</label>
-      <input type="url" 
-             name="fileLink"
-             placeholder="https://example.com/arquivo.html" 
-             required>
-      
-      <button>
-        Hostear!
-      </button>
-    </form>
-    
-  <div class="server-status">
-    <h2>Status do Servidor</h2>
-    <p>
-      O servidor está: <span verde>Online</span>
-    </p>
-  </div>
-    
-    <br>
-    
-    <p>Os dados serão retornados em formato JSON, que é amplamente utilizado para troca de informações na web.</p> 
-    <p>Você também pode adicionar parâmetros à URL para filtrar os resultados por data, autor ou categoria. Consulte a documentação para obter mais detalhes.</p>
+        <main>
+          <h2>Bem-vindo(a) ao Sistema de Hosteamento de Arquivos!</h2>
+          <form action="/host" method="POST">
+            <label>Path do Arquivo</label>
+            <input
+              type="text"
+              name="path"
+              placeholder="/minha_pagina"
+              required
+            />
 
+            <label>Link do Arquivo</label>
+            <input
+              type="file"
+              name="file"
+              placeholder="https://example.com/arquivo.html"
+              required
+            />
 
+            <button>Hostear!</button>
+          </form>
 
-        
+          <div class="server-status">
+            <h2>Status do Servidor</h2>
+            <p>O servidor está: <span verde>Online</span></p>
+          </div>
 
+          <br />
 
-  </main>
-        
-        
-       
-</div> </div>
-        <footer>
-          <div class="links"></div>
-    
-          <div id="direitos" class="direitos">Loading...</div>
-        </footer>
-</body>
+          <p>
+            Os dados serão retornados em formato JSON, que é amplamente
+            utilizado para troca de informações na web.
+          </p>
+          <p>
+            Você também pode adicionar parâmetros à URL para filtrar os
+            resultados por data, autor ou categoria. Consulte a documentação
+            para obter mais detalhes.
+          </p>
+        </main>
+      </div>
+    </div>
+    <footer>
+      <div class="links"></div>
+
+      <div id="direitos" class="direitos">Loading...</div>
+    </footer>
+  </body>
 
   <scripts>
     <script src="https://pingobras.glitch.me/js/links.js" defer></script>
     <script src="https://pingobras.glitch.me/js/main.js" defer></script>
-    </scripts>
+  </scripts>
   <autoscripts>
     <script src="https://pingobras.glitch.me/js/load-scripts.js"></script>
-    </autoscripts>
-    <host>
+  </autoscripts>
+  <host>
     <script src="https://pingobras.glitch.me/js/load-host.js" defer></script>
-    </host>
+  </host>
 </html>

@@ -63,10 +63,12 @@ router.post("/host", upload.single("file"), async (req, res) => {
       }
 
       // Se você chegou até aqui, o arquivo foi carregado com sucesso
+      dataHost.push(payload);
+      fs.writeFileSync("data/host.json", JSON.stringify(dataHost), "utf8");
       res.status(201);
       res.send(
         "Hospedagem de arquivo cadastrada com sucesso! <a href='" +
-          file +
+        dominio +
           "'>Acesse aqui</a>"
       );
     } catch (error) {

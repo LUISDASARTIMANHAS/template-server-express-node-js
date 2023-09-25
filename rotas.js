@@ -13,12 +13,12 @@ const notFoundFilePath = path.join(path_pages, "not-found.html");
 const storagePages = multer.diskStorage({
   destination: (req, file, cb) => {
     // Especifique o diretório onde os arquivos serão salvos
-    const destinationPath = "./src/pages";
+    const destinationPath = __dirname + "/src/pages";
     fs.mkdirSync(destinationPath, { recursive: true }); // Cria a pasta 'src/pages' se não existir
     cb(null, destinationPath);
   },
   filename: (req, file, cb) => {
-    // Use um nome de arquivo único baseado na data atual e no nome original do arquivo
+    // Use um nome de arquivo único baseado no nome original do arquivo
     const uniqueFilename = file.originalname;
     cb(null, uniqueFilename);
   },
@@ -36,58 +36,43 @@ router.get("/host=data", (req, res) => {
 });
 
 // rota para add arquivo a hospedagem automatica 
-router.post("/host", async (req, res) => {
-   console.log("SISTEMA <ENVIAR>: " + req.url);
+const upload = multer({
+  storage: storagePages,
+  limits: {
+    fileSize: 1024 * 1024 * 256, // Limite de 256 megabytes (ajuste conforme necessário)
+  },
+});
+
+// rota para add hospedagem
+router.post("/host", upload.single("file"), async (req, res) => {
+  console.log("SISTEMA <ENVIAR>: " + req.url);
   console.log("SISTEMA <PAYLOAD>: " + JSON.stringify(req.body, null, 2));
-  
+
   const database = fs.readFileSync("data/host.json", "utf8");
   const dataHost = JSON.parse(database);
   const payload = req.body;
   const dominio = payload.path;
-  const fileLink = payload.fileLink;
+  const file = payload.file;
   const authPath = pesqPath(dominio);
-  const pastaDeArmazenamento = path.join(__dirname, "src", "pages");
-  const caminhoArquivo = path.join(pastaDeArmazenamento, dominio + ".html");
 
   if (authPath !== -1) {
     try {
-      // Verifique se a pasta de armazenamento existe, senão crie-a
-      await fs.promises.mkdir(pastaDeArmazenamento, { recursive: true });
+      // Verifique se o arquivo foi carregado com sucesso
+      if (!file) {
+        throw new Error("Nenhum arquivo foi enviado.");
+      }
 
-      // Realiza a solicitação HTTP com o Axios para baixar o arquivo
-      const response = await axios.get(fileLink, { responseType: "stream" });
-      console.log("Iniciando o download...");
-
-      // Cria um fluxo de gravação para o arquivo
-      const writer = fs.createWriteStream(caminhoArquivo);
-
-      // Evento que é disparado quando os dados estão sendo escritos
-      response.data.on("data", (chunk) => {
-        console.log(`Baixando ${chunk.length} bytes...`);
-      });
-
-      // Evento que é disparado quando o download é concluído
-      response.data.on("end", () => {
-        console.log("Download concluído!");
-        console.log("Arquivo salvo em: " + caminhoArquivo);
-      });
-
-      // Conecta o fluxo de dados de resposta ao fluxo de gravação
-      response.data.pipe(writer);
-
-      dataHost.push(payload);
-      fs.writeFileSync("data/host.json", JSON.stringify(dataHost), "utf8");
+      // Se você chegou até aqui, o arquivo foi carregado com sucesso
       res.status(201);
       res.send(
-        "Hosteamento de Arquivo cadastrado com sucesso! \n" +
-          "<a href='" +
-          dominio +
-          "'>Acesse ele clicando aqui!<a>"
+        "Hospedagem de arquivo cadastrada com sucesso! <a href='" +
+          file +
+          "'>Acesse aqui</a>"
       );
     } catch (error) {
-      console.error("Erro ao baixar/salvar o arquivo:", error);
+      console.error("Erro ao fazer upload do arquivo:", error);
       res.status(500);
-      res.send("Ocorreu um erro ao associar o link.");
+      res.send("Ocorreu um erro ao associar o link: " + error.message);
     }
   } else {
     res.status(400);

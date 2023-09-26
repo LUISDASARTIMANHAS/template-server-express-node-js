@@ -13,7 +13,7 @@ const notFoundFilePath = path.join(path_pages, "not-found.html");
 const storagePages = multer.diskStorage({
   destination: (req, file, cb) => {
     // Especifique o diretório onde os arquivos serão salvos
-    const destinationPath = path.join(__dirname, "src", "pages");
+    const destinationPath = path.join(__dirname, "src","pages");
     fs.mkdirSync(destinationPath, { recursive: true }); // Cria a pasta 'src/pages' se não existir
     cb(null, destinationPath);
   },
@@ -35,12 +35,12 @@ router.get("/host=data", (req, res) => {
   res.json(host);
 });
 
-// rota para add arquivo a hospedagem automatica 
+// rota para add arquivo a hospedagem automatica
 const upload = multer({
-  storage: storagePages
-  // limits: {
-  //   fileSize: 1024 * 1024 * 256, // Limite de 256 megabytes (ajuste conforme necessário)
-  // },
+  storage: storagePages,
+  limits: {
+    fileSize: 1024 * 1024 * 256, // Limite de 256 megabytes (ajuste conforme necessário)
+  },
 });
 
 // rota para add hospedagem
@@ -71,14 +71,17 @@ router.post("/host", upload.single("file"), (req, res) => {
         dominio +
           "'>Acesse aqui</a>"
       );
+      console.log("Hospedagem de arquivo cadastrada com sucesso! " + dominio)
     } catch (error) {
       console.error("Erro ao fazer upload do arquivo:", error);
       res.status(500);
       res.send("Ocorreu um erro ao associar o link: " + error.message);
+      console.log("Ocorreu um erro ao associar o link: " + error.message)
     }
   } else {
     res.status(400);
     res.send("Já existe um Path (caminho) cadastrado.");
+    console.log("Já existe um Path (caminho) cadastrado.")
   }
 });
 

@@ -20,7 +20,7 @@
       <div class="conteudo" role="main">
         <main>
           <h2>Bem-vindo(a) ao Sistema de Hosteamento de Arquivos!</h2>
-          <form action="/host" method="POST">
+          <form action="/host" method="POST" enctype="multipart/form-data">
             <label>Path do Arquivo</label>
             <input
               type="text"
@@ -29,15 +29,14 @@
               required
             />
 
-            <label>Link do Arquivo</label>
+            <label>Envie o Arquivo de no max 256BM</label>
             <input
               type="file"
               name="file"
-              placeholder="https://example.com/arquivo.html"
               required
             />
 
-            <button>Hostear!</button>
+            <button type="submit">Hostear!</button>
           </form>
 
           <div class="server-status">

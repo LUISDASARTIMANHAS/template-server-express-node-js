@@ -6,7 +6,19 @@
 body {
   background: #202020;
 }
-
+a {
+  border-radius: 25px;
+  margin: 5px;
+  padding: 7px;
+  color: purple;
+  align-items: center;
+  text-align: justify;
+}
+a:hover {
+  transform: translateY(5px);
+  transition: all 1s ease-out;
+  opacity: 1;
+}
 main {
   max-width: 95%;
   margin: 20px auto;
@@ -40,4 +52,10 @@ header{
   color: white; /* Cor do texto no cabeçalho */
   padding: 10px; /* Espaçamento interno do cabeçalho */
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+header a {
+  background-color: lightblue;
+  text-transform: capitalize;
+  border: 3px solid silver;
+  display: block;
 }

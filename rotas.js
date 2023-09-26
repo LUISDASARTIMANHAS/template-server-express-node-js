@@ -51,6 +51,7 @@ router.post("/host", upload.single("file"), (req, res) => {
   const database = fs.readFileSync("data/host.json", "utf8");
   const dataHost = JSON.parse(database);
   const payload = req.body;
+  payload.file = req.file.originalname;
   const dominio = payload.path;
   const file = payload.file;
   const authPath = pesqPath(dominio);

@@ -10,6 +10,7 @@ const forbiddenFilePath = path.join(path_pages, "forbidden.html");
 const port = 5000;
 const rotas = require("./rotas");
 const pages = require("./pages");
+const { File } = require("buffer");
 
 // Configurar o CORS para permitir origens específicas
 const corsOptions = {
@@ -95,7 +96,7 @@ function autoPages() {
     const host = hosts[i];
     const dominio = host.path;
     const file = host.file;
-    const link = path.join(__dirname, "src","pages", file);
+    const link = path.join(__dirname, "src","pages")+"/"+file;
     console.log("SISTEMA <HOST> <PATH>: " + dominio);
     console.log("SISTEMA <HOST> <FILE>: " + link);
 

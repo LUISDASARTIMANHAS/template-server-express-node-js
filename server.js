@@ -7,7 +7,7 @@ const cors = require("cors");
 const filesServer = __dirname + "/src/";
 const path_pages = filesServer + "pages/";
 const forbiddenFilePath = path.join(path_pages, "forbidden.html");
-const port = 5000;
+const port = 0080;
 const rotas = require("./rotas");
 const pages = require("./pages");
 const { File } = require("buffer");
@@ -62,7 +62,7 @@ app.use(pages);
 app.use(rotas);
 
 app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`);
+  console.log(`Servidor rodando em http://localhost`);
 });
 
 // functions basicas

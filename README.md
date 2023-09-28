@@ -7,7 +7,7 @@ Este e um template de um servidor web node.js, ele tem um sistema de hosteamento
 # Configurando
 Para configurar o servidor acesse o arquivo config.json
 
-![image](https://github.com/LUISDASARTIMANHAS/template-server-express-node-js/assets/75493473/19003f8a-7d5e-4023-994c-4c3716ae9a3c)
+![image](https://github.com/LUISDASARTIMANHAS/template-server-express-node-js/assets/75493473/8d635f5a-3a46-4d00-83da-da5e6cf70bff)
 
 
 # Colocando na Internet 

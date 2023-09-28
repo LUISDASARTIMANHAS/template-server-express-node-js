@@ -28,9 +28,9 @@ const checkHeaderMiddleware = (req, res, next) => {
   ];
   const blockRoutesPresent = blockedRoutes.includes(req.path);
   const payload = JSON.stringify(req.body, null, 2);
-  const key = "key1";
-  const key2 = "key2";
-  const key3 = "key for aplications &Aplication";
+  const key = configs.key1;
+  const key2 = configs.key2;
+  const key3 = configs.keyApp;
 
   const validKey = keyHeader === key;
   const validKey2 = keyHeader === key2;

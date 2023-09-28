@@ -17,7 +17,7 @@ const { File } = require("buffer");
 // Configurar o CORS para permitir origens específicas
 const corsOptions = {
   origin: /^https:\/\/.+/,
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  methods: configs.methods,
   optionsSuccessStatus: 204,
 };
 const checkHeaderMiddleware = (req, res, next) => {

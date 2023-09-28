@@ -7,10 +7,11 @@ const cors = require("cors");
 const filesServer = __dirname + "/src/";
 const path_pages = filesServer + "pages/";
 const forbiddenFilePath = path.join(path_pages, "forbidden.html");
-const port = 0080;
 const rotas = require("./rotas");
 const pages = require("./pages");
 const { File } = require("buffer");
+const port = 80;
+const dinamicPort = (port || 5000);
 
 // Configurar o CORS para permitir origens específicas
 const corsOptions = {
@@ -61,13 +62,12 @@ app.use(pages);
 
 app.use(rotas);
 
-app.listen(port, (key,key1,key2) => {
+app.listen(dinamicPort, (key,key1,key2) => {
   console.log("SISTEMA <CHAVES DE ACESSO 1>: " + key);
   console.log("SISTEMA <CHAVES DE ACESSO 2>: " + key1);
   console.log("SISTEMA <CHAVES DE ACESSO 3>: " + key2);
-  console.log("Servidor rodando em http://localhost:" + port);
+  console.log("Servidor rodando em http://localhost:" + dinamicPort);
 });
-app.stop()
 // functions basicas
 function print(keyHeader, key, key2, key3, auth1, auth2, auth3) {
   console.log("SISTEMA <VERIFICAÇÃO 1>: " + keyHeader + " == " + key);

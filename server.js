@@ -62,7 +62,10 @@ app.use(pages);
 app.use(rotas);
 
 app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost`);
+  console.log("SISTEMA <CHAVES DE ACESSO 1>: " + key);
+  console.log("SISTEMA <CHAVES DE ACESSO 2>: " + key1);
+  console.log("SISTEMA <CHAVES DE ACESSO 3>: " + key2);
+  console.log("Servidor rodando em http://localhost:" + port);
 });
 
 // functions basicas

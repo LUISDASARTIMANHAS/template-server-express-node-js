@@ -23,7 +23,6 @@ const storagePages = multer.diskStorage({
     cb(null, uniqueFilename);
   },
 });
-let serverProcess = null;
 
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
@@ -181,7 +180,7 @@ autoPages();
 
 // Função para reiniciar o servidor
 function reiniciarServidor() {
-  express().close()
+  console.log("Reiniciando...")
 }
 
 // Middleware para lidar com rotas não encontradas (404)

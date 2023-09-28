@@ -3,6 +3,9 @@ const app = express();
 const path = require("path");
 const fs = require("fs");
 const cors = require("cors");
+const configs = JSON.parse(fs.readFileSync("config.json", "utf8"));
+const porta = configs.porta
+const dinamicPort = (porta || configs.portaAlt);
 
 const filesServer = __dirname + "/src/";
 const path_pages = filesServer + "pages/";
@@ -10,8 +13,6 @@ const forbiddenFilePath = path.join(path_pages, "forbidden.html");
 const rotas = require("./rotas");
 const pages = require("./pages");
 const { File } = require("buffer");
-const port = 80;
-const dinamicPort = (port || 5000);
 
 // Configurar o CORS para permitir origens específicas
 const corsOptions = {

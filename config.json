@@ -1,6 +1,6 @@
 {
-    "porta": 80,
-    "portaAlt":5000,
+    "porta": null,
+    "portaPadrao":80,
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
     "key":"key1",
     "key2":"key2",

@@ -5,7 +5,7 @@ const fs = require("fs");
 const cors = require("cors");
 const configs = JSON.parse(fs.readFileSync("config.json", "utf8"));
 const porta = configs.porta
-const dinamicPort = (porta || configs.portaPadrao);
+const dinamicPort = (porta || 80);
 
 const filesServer = __dirname + "/src/";
 const path_pages = filesServer + "pages/";

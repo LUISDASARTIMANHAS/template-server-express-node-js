@@ -7,4 +7,6 @@ Este e um template de um servidor web node.js, ele tem um sistema de hosteamento
 # Colocando na Internet 
 Ele usa a porta padrão 80 + IP da maquina, para coloca-lo na internet apenas redirecione o IP da maquina para um dominio e a porta 80 ja deveria fazer tudo, anão ser que altere a porta.
 
+Altere a porta se outro sistema ou roteador utilizala!
+
 Site local: http://localhost

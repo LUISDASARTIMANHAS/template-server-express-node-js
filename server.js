@@ -23,7 +23,7 @@ const corsOptions = {
 const checkHeaderMiddleware = (req, res, next) => {
   const origin = req.headers.referer || req.headers.referrer;
   const keyHeader = req.headers["authorization"];
-  const blockedRoutes = configs.blockedRoutes
+  const blockedRoutes = configs.blockedRoutes || []
   const blockRoutesPresent = blockedRoutes.includes(req.path);
   const payload = JSON.stringify(req.body, null, 2);
   const key = configs.key;

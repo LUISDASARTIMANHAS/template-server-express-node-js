@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const axios = require("axios");
 const multer = require("multer");
 const { exec } = require('child_process'); // executa comandos do sistema como restart
+const kill = require('tree-kill');
 
 const files2 = __dirname + "/src/";
 const path_pages = files2 + "pages/";

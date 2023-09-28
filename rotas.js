@@ -74,14 +74,7 @@ router.post("/host", upload.single("file"), (req, res) => {
           "'>Acesse aqui</a>"
       );
       console.log("Hospedagem de arquivo cadastrada com sucesso! " + dominio)
-       exec('pm2 restart nome-do-seu-servidor', (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Erro ao reiniciar o servidor: ${error}`);
-      return res.status(500).send('Erro ao reiniciar o servidor');
-    }
-    console.log(`Servidor reiniciado: ${stdout}`);
-    res.send('Servidor reiniciado com sucesso');
-  });
+      reiniciarServidor();
     } catch (error) {
       console.error("Erro ao fazer upload do arquivo:", error);
       res.status(500);
@@ -185,6 +178,37 @@ function autoPages() {
   }
 }
 autoPages();
+
+// Função para reiniciar o servidor
+function reiniciarServidor() {
+  // Encerrar o processo anterior, se existir
+  if (serverProcess) {
+    console.log('Finalizando o processo do servidor anterior...');
+    kill(serverProcess.pid, 'SIGTERM', (err) => {
+      if (err) {
+        console.error(`Erro ao encerrar o processo anterior: ${err}`);
+      }
+      console.log('Processo anterior encerrado.');
+      iniciarNovoServidor();
+    });
+  } else {
+    iniciarNovoServidor();
+  }
+}
+
+// Função para iniciar um novo servidor
+function iniciarNovoServidor() {
+  console.log('Iniciando um novo servidor...');
+  const comando = 'npm run start'; // Substitua pelo comando correto
+
+  serverProcess = exec(comando, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Erro ao iniciar o servidor: ${error}`);
+    } else {
+      console.log('Novo servidor iniciado.');
+    }
+  });
+}
 
 // Middleware para lidar com rotas não encontradas (404)
 router.use((req, res, next) => {

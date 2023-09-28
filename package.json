@@ -1,7 +1,7 @@
 {
   "name": "pingobras-blog",
   "version": "0.1.0",
-  "description": "",
+  "description": "Este e um template de um servidor web node.js, ele tem um sistema de hosteamento dinâmico na rota ```/host``` que salva os arquivos e o caminho do usuario na pasta ```uploads``` e no banco de dados ``` /data/host.json ```",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^1.5.0",
     "body-parser": "^1.20.2",
+    "child_process": "^1.0.2",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "fs": "^0.0.2",

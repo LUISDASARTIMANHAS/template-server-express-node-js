@@ -3,7 +3,6 @@ const app = express();
 const path = require("path");
 const fs = require("fs");
 const cors = require("cors");
-const { exec } = require('child_process');
 
 const filesServer = __dirname + "/src/";
 const path_pages = filesServer + "pages/";

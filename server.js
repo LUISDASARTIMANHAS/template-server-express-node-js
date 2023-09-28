@@ -61,7 +61,7 @@ app.use(pages);
 
 app.use(rotas);
 
-app.listen(port, () => {
+app.listen(port, (key,key1,key2) => {
   console.log("SISTEMA <CHAVES DE ACESSO 1>: " + key);
   console.log("SISTEMA <CHAVES DE ACESSO 2>: " + key1);
   console.log("SISTEMA <CHAVES DE ACESSO 3>: " + key2);
@@ -99,7 +99,7 @@ function autoPages() {
     const host = hosts[i];
     const dominio = host.path;
     const file = host.file;
-    const link = path.join(__dirname, "src","pages")+"/"+file;
+    const link = path.join(__dirname, "src","uploads")+"/"+file;
     console.log("SISTEMA <HOST> <PATH>: " + dominio);
     console.log("SISTEMA <HOST> <FILE>: " + link);
 

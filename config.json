@@ -1,8 +1,8 @@
 {
-    "porta": 80,
+    "porta": 3000,
     "portaAlt":5000,
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-    "key": "key1",
+    "key1": "key1",
     "key2":"key2",
     "keyApp":"Key for &applications"
 }

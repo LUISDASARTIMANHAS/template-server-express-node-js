@@ -5,6 +5,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const axios = require("axios");
 const multer = require("multer");
+const { exec } = require('child_process'); // executa comandos do sistema como restart
 
 const files2 = __dirname + "/src/";
 const path_pages = files2 + "pages/";
@@ -73,6 +74,14 @@ router.post("/host", upload.single("file"), (req, res) => {
           "'>Acesse aqui</a>"
       );
       console.log("Hospedagem de arquivo cadastrada com sucesso! " + dominio)
+       exec('pm2 restart nome-do-seu-servidor', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Erro ao reiniciar o servidor: ${error}`);
+      return res.status(500).send('Erro ao reiniciar o servidor');
+    }
+    console.log(`Servidor reiniciado: ${stdout}`);
+    res.send('Servidor reiniciado com sucesso');
+  });
     } catch (error) {
       console.error("Erro ao fazer upload do arquivo:", error);
       res.status(500);

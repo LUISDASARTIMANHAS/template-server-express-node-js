@@ -1,4 +1,5 @@
 {
+    //Defina  como null para usar a porta padrão
     "porta": null,
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
     "key":"key1",

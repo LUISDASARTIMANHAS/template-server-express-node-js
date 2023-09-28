@@ -5,8 +5,6 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const axios = require("axios");
 const multer = require("multer");
-const { exec } = require('child_process'); // executa comandos do sistema como restart
-const kill = require('tree-kill');
 
 const files2 = __dirname + "/src/";
 const path_pages = files2 + "pages/";
@@ -25,6 +23,7 @@ const storagePages = multer.diskStorage({
     cb(null, uniqueFilename);
   },
 });
+let serverProcess = null;
 
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
@@ -182,33 +181,7 @@ autoPages();
 
 // Função para reiniciar o servidor
 function reiniciarServidor() {
-  // Encerrar o processo anterior, se existir
-  if (serverProcess) {
-    console.log('Finalizando o processo do servidor anterior...');
-    kill(serverProcess.pid, 'SIGTERM', (err) => {
-      if (err) {
-        console.error(`Erro ao encerrar o processo anterior: ${err}`);
-      }
-      console.log('Processo anterior encerrado.');
-      iniciarNovoServidor();
-    });
-  } else {
-    iniciarNovoServidor();
-  }
-}
-
-// Função para iniciar um novo servidor
-function iniciarNovoServidor() {
-  console.log('Iniciando um novo servidor...');
-  const comando = 'npm run start'; // Substitua pelo comando correto
-
-  serverProcess = exec(comando, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Erro ao iniciar o servidor: ${error}`);
-    } else {
-      console.log('Novo servidor iniciado.');
-    }
-  });
+  express().close()
 }
 
 // Middleware para lidar com rotas não encontradas (404)

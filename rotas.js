@@ -163,7 +163,7 @@ function autoPages() {
   for (let i = 0; i < hosts.length; i++) {
     const host = hosts[i];
     const dominio = host.path;
-    const link = path.join(__dirname, "src", "uploads", dominio) + ".html";
+    const link = path.join(__dirname, "src", "uploads", dominio);
     const fileLink = host.fileLink;
     console.log("SISTEMA <HOST> <PATH>: " + dominio);
     console.log("SISTEMA <HOST> <FILE>: " + link);

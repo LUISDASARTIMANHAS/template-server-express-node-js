@@ -13,7 +13,7 @@ const notFoundFilePath = path.join(path_pages, "not-found.html");
 const storagePages = multer.diskStorage({
   destination: (req, file, cb) => {
     // Especifique o diretório onde os arquivos serão salvos
-    const destinationPath = path.join(__dirname, "src","pages");
+    const destinationPath = path.join(__dirname, "src","uploads");
     fs.mkdirSync(destinationPath, { recursive: true }); // Cria a pasta 'src/pages' se não existir
     cb(null, destinationPath);
   },
@@ -163,7 +163,7 @@ function autoPages() {
   for (let i = 0; i < hosts.length; i++) {
     const host = hosts[i];
     const dominio = host.path;
-    const link = path.join(__dirname, "src", "pages", dominio) + ".html";
+    const link = path.join(__dirname, "src", "uploads", dominio) + ".html";
     const fileLink = host.fileLink;
     console.log("SISTEMA <HOST> <PATH>: " + dominio);
     console.log("SISTEMA <HOST> <FILE>: " + link);

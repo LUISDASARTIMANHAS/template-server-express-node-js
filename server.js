@@ -40,6 +40,9 @@ const checkHeaderMiddleware = (req, res, next) => {
   const auth3 = blockRoutesPresent && !validKey3;
   autoPages()
 
+  console.log("SISTEMA <CHAVES DE ACESSO 1>: " + key);
+  console.log("SISTEMA <CHAVES DE ACESSO 2>: " + key1);
+  console.log("SISTEMA <CHAVES DE ACESSO 3>: " + key2);
   console.log("-------------------------");
   console.log("SISTEMA <CHECK> <OBTER>: " + req.url);
   console.log("SISTEMA <ORIGEM>: " + origin);
@@ -63,10 +66,7 @@ app.use(pages);
 
 app.use(rotas);
 
-app.listen(dinamicPort, (key,key1,key2) => {
-  console.log("SISTEMA <CHAVES DE ACESSO 1>: " + key);
-  console.log("SISTEMA <CHAVES DE ACESSO 2>: " + key1);
-  console.log("SISTEMA <CHAVES DE ACESSO 3>: " + key2);
+app.listen(dinamicPort, () => {
   console.log("Servidor rodando em http://localhost:" + dinamicPort);
 });
 // functions basicas

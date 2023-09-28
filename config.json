@@ -1,5 +1,11 @@
 {
-    "porta": 80,
+    "porta": null,
     "portaAlt":5000,
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE"
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "key":"key1",
+    "key2":"key2",
+    "keyApp":"key For &application",
+    "blockedRoutes": [
+        "/my-private-route"
+    ]
 }

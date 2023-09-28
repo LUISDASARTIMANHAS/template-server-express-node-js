@@ -23,14 +23,12 @@ const corsOptions = {
 const checkHeaderMiddleware = (req, res, next) => {
   const origin = req.headers.referer || req.headers.referrer;
   const keyHeader = req.headers["authorization"];
-  const blockedRoutes = [
-    "/my-private-route",
-  ];
+  const blockedRoutes = configs.blockedRoutes
   const blockRoutesPresent = blockedRoutes.includes(req.path);
   const payload = JSON.stringify(req.body, null, 2);
-  const key = "key1";
-  const key2 = "key2";
-  const key3 = "key For &aplication";
+  const key = configs.key;
+  const key2 = configs.key2;
+  const key3 = configs.keyApp;
 
   const validKey = keyHeader === key;
   const validKey2 = keyHeader === key2;
@@ -41,8 +39,8 @@ const checkHeaderMiddleware = (req, res, next) => {
   autoPages()
 
   console.log("SISTEMA <CHAVES DE ACESSO 1>: " + key);
-  console.log("SISTEMA <CHAVES DE ACESSO 2>: " + key1);
-  console.log("SISTEMA <CHAVES DE ACESSO 3>: " + key2);
+  console.log("SISTEMA <CHAVES DE ACESSO 2>: " + key2);
+  console.log("SISTEMA <CHAVES DE ACESSO 3>: " + key3);
   console.log("-------------------------");
   console.log("SISTEMA <CHECK> <OBTER>: " + req.url);
   console.log("SISTEMA <ORIGEM>: " + origin);

@@ -1,5 +1,5 @@
 {
-  "name": "pingobras-server-express-node-js",
+  "name": "pingobras-server-express-node",
   "version": "0.5.0",
   "description": "Este e um template de um servidor web node.js, ele tem um sistema de hosteamento dinâmico na rota ```/host``` que salva os arquivos e o caminho do usuario na pasta ```uploads``` e no banco de dados ``` /data/host.json ```",
   "main": "server.js",
@@ -7,12 +7,12 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "axios": "^1.5.0",
+    "axios": "^1.5.1",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "fs": "^0.0.2",
-    "multer": "^1.4.5-lts.1",
+    "multer": "^1.4.4",
     "nodemailer": "^6.9.5",
     "path": "^0.12.7",
     "pm2": "^5.3.0"
@@ -25,5 +25,14 @@
     "node",
     "glitch"
   ],
-  "author": "LUIS DAS ARTIMANHAS"
+  "author": "LUIS DAS ARTIMANHAS",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LUISDASARTIMANHAS/template-server-express-node-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LUISDASARTIMANHAS/template-server-express-node-js/issues"
+  },
+  "homepage": "https://github.com/LUISDASARTIMANHAS/template-server-express-node-js#readme"
 }

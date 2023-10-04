@@ -42,8 +42,9 @@ fetch(url,options).then((response) => {
       autenticar(data);
     }).catch((error) => onError(error));
 
-function onError(error){
-console.error(error);
-alert(error);
+    function onError(error){
+    console.error(error);
+    alert(error);
+    }
 }
-}```
+```

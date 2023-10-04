@@ -16,3 +16,34 @@ Ele usa a porta padrão 80 + IP da maquina, para coloca-lo na internet apenas re
 Altere a porta se outro sistema ou roteador, estiver utilizando!
 
 Site local: http://localhost
+
+# Exemplo de Solicitações Fetch para o servidor
+```
+function getData(){
+const url = "https://localhost"
+const options = {
+method: "GET",
+    headers: {
+      "content-type": "application/json;charset=utf-8",
+      Authorization: "yourKey Config on the server",
+    },
+}
+
+fetch(url,options).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Erro na solicitação, URL inválida ou fetch inválido");
+        return response.text()
+      }
+    }).then((data) => {
+      console.log("DATA RESPONSE: ");
+      console.log(data);
+      autenticar(data);
+    }).catch((error) => onError(error));
+
+function onError(error){
+console.error(error);
+alert(error);
+}
+}```

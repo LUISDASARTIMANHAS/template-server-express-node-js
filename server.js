@@ -12,6 +12,7 @@ const path_pages = filesServer + "pages/";
 const forbiddenFilePath = path.join(path_pages, "forbidden.html");
 const rotas = require("./rotas");
 const pages = require("./pages");
+const emailSys = require("./sys-email");
 const { File } = require("buffer");
 
 // Configurar o CORS para permitir origens específicas
@@ -59,7 +60,7 @@ const checkHeaderMiddleware = (req, res, next) => {
 app.use(cors(corsOptions));
 app.use(checkHeaderMiddleware);
 app.use(pages);
-
+app.use(emailSys);
 //add here others files to load / adicione aqui outros arquivos para carregar
 
 app.use(rotas);

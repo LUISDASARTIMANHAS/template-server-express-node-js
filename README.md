@@ -30,7 +30,7 @@ https://support.google.com/mail/answer/185833?hl=pt-BR
         service: 'seu provedor de e-mail', // Exemplo: 'Gmail', 'Outlook', etc.
         auth: {
         user: 'seu-email@gmail.com', // Seu endereço de e-mail
-        pass: 'sua-senha-de-e-mail', // Senhas de app
+        pass: 'chave conigurada no senhas de app do google e gmail', // Senhas de app
         },
 });
 ```

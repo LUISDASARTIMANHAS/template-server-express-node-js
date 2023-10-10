@@ -25,15 +25,9 @@ para começar configure o transporte de e-mail, fornecendo as informações do s
 **Informações da Aba de configuração**
 
 https://support.google.com/mail/answer/185833?hl=pt-BR
-```
-    const transporter = nodemailer.createTransport({
-        service: 'seu provedor de e-mail', // Exemplo: 'Gmail', 'Outlook', etc.
-        auth: {
-        user: 'seu-email@gmail.com', // Seu endereço de e-mail
-        pass: 'chave conigurada no senhas de app do google e gmail', // Senhas de app
-        },
-});
-```
+
+![image](https://github.com/LUISDASARTIMANHAS/template-server-express-node-js/assets/75493473/15bca0d1-7682-4d2d-9771-e180c131c0ee)
+
 # Criando o conetudo do email e enviando!
 Lembre-se de substituir 'seu-email@gmail.com', 'sua-senha-de-e-mail', 'destinatario@example.com', 'Assunto do E-mail' e 'Conteúdo do E-mail' com as informações apropriadas.
 

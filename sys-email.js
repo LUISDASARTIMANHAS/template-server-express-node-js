@@ -131,7 +131,7 @@ function restaurarConta(email) {
       const mailOptions = {
         from: "PINGOBRASSA@gmail.com", // Remetente
         to: email, // Destinatário
-        subject: "SISTEMA: RESTAURAR CONTA",
+        subject: "SISTEMA: RESTAURAR CONTA", // subtitle 
         text:
           "Olá! " +
           "\n" +

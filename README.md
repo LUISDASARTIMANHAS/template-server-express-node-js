@@ -38,6 +38,7 @@ https://support.google.com/mail/answer/185833?hl=pt-BR
 Lembre-se de substituir 'seu-email@gmail.com', 'sua-senha-de-e-mail', 'destinatario@example.com', 'Assunto do E-mail' e 'Conteúdo do E-mail' com as informações apropriadas.
 
 Certifique-se de que a conta de e-mail utilizada permita o uso de "aplicativos menos seguros" ou, se possível, gere uma "senha de aplicativo" para a autenticação, dependendo do provedor de e-mail.
+
 ![image](https://github.com/LUISDASARTIMANHAS/template-server-express-node-js/assets/75493473/0552c85e-b284-458b-ac4b-c5a8b2b9c9e3)
 
 # Exemplo de Solicitações Fetch para o servidor

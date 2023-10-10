@@ -19,8 +19,8 @@ Site local: http://localhost
 
 # Configurando o sistema de emails
 para começar configure o transporte de e-mail, fornecendo as informações do servidor de e-mail que você deseja usar (como Gmail, Outlook, etc.):
-
-## Não esqueça de configurar as Senhas de app no seu provedor de email!! nesse caso vamos usar o Goolge e Gmail
+ 
+**Não esqueça de configurar as Senhas de app no seu provedor de email!! nesse caso vamos usar o Goolge e Gmail**
 
 **Informações da Aba de configuração**
 

@@ -37,9 +37,7 @@ fetch(url,options).then((response) => {
         return response.text()
       }
     }).then((data) => {
-      console.log("DATA RESPONSE: ");
-      console.log(data);
-      autenticar(data);
+      onSuccess(data);
     }).catch((error) => onError(error));
 
     function onError(error){
@@ -47,9 +45,9 @@ fetch(url,options).then((response) => {
     alert(error);
     }
 
-    function onSuccess(error){
-    console.error(error);
-    alert(error);
+    function onSuccess(resposta){
+    console.log("DATA RESPONSE: ");
+    console.log(resposta);
     }
 }
 

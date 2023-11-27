@@ -19,7 +19,7 @@
     "pm2": "^5.3.0"
   },
   "engines": {
-    "node": "14.x"
+    "node": "20.x"
   },
   "license": "MIT",
   "keywords": [

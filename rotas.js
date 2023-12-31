@@ -48,6 +48,11 @@ router.post("/host", upload.single("file"), (req, res) => {
   console.log("SISTEMA <ENVIAR>: " + req.url);
   console.log("SISTEMA <PAYLOAD>: " + JSON.stringify(req.body, null, 2));
 
+  // Rota blackhole para lidar com muitas requisições
+router.use('/blackhole', (req, res) => {
+  res.status(429);
+  res.send('Too Many Requests // Muitas Solicitações!');
+});
   const database = fs.readFileSync("data/host.json", "utf8");
   const dataHost = JSON.parse(database);
   const payload = req.body;

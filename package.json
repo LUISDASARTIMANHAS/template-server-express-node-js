@@ -1,6 +1,6 @@
 {
   "name": "pingobras-server-express-node",
-  "version": "0.5.3",
+  "version": "0.5.5",
   "description": "Este e um template de um servidor web node.js, ele tem um sistema de hosteamento dinâmico na rota ```/host``` que salva os arquivos e o caminho do usuario na pasta ```uploads``` e no banco de dados ``` /data/host.json ```",
   "main": "server.js",
   "scripts": {
@@ -16,7 +16,8 @@
     "multer": "^1.4.4",
     "nodemailer": "^6.9.5",
     "path": "^0.12.7",
-    "pm2": "^5.3.0"
+    "pm2": "^5.3.0",
+    "xss": "^1.0.14"
   },
   "engines": {
     "node": "20.x"

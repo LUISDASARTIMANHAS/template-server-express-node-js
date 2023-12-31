@@ -37,6 +37,9 @@ const checkHeaderMiddleware = (req, res, next) => {
   const auth1 = blockRoutesPresent && !validKey;
   const auth2 = blockRoutesPresent && !validKey2;
   const auth3 = blockRoutesPresent && !validKey3;
+  for (const key in req.body) {
+    req.body[key] = xss(req.body[key]);
+  }
   autoPages()
 
   console.log("SISTEMA <CHAVES DE ACESSO 1>: " + key);
@@ -57,6 +60,36 @@ const checkHeaderMiddleware = (req, res, next) => {
   }
 };
 
+// Middleware para controlar o número de solicitações
+const requestLimiter = (req, res, next) => {
+  const clientIP = req.ip; 
+
+  // Verifica se o IP existe no objeto requestCount
+  if (!requestCount[clientIP]) {
+    requestCount[clientIP] = 1;
+  } else {
+    requestCount[clientIP]++;
+  }
+
+  // Define um limite de solicitações (por exemplo, 100 solicitações em um minuto)
+  const requestLimit = 50;
+  const timeLimit = 60000; // 1 minuto em milissegundos
+
+  // Se o número de solicitações do IP exceder o limite em um minuto
+  if (requestCount[clientIP] > requestLimit) {
+    console.log("Muitas Solicitações! do ip: " + clientIP);
+    return res.status(429).send('Too Many Requests // Muitas Solicitações!'); // Retorna um código de status 429 - Too Many Requests
+  }
+
+  // Configura o tempo limite para resetar o contador de solicitações
+  setTimeout(() => {
+    requestCount[clientIP] = 0; // Reinicia o contador para o IP após o tempo limite
+  }, timeLimit);
+
+  next();
+};
+
+app.use(requestLimiter);
 app.use(cors(corsOptions));
 app.use(checkHeaderMiddleware);
 app.use(pages);

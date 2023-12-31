@@ -1,4 +1,5 @@
 const express = require("express");
+const xss = require("xss");
 const app = express();
 const path = require("path");
 const fs = require("fs");
@@ -6,6 +7,7 @@ const cors = require("cors");
 const configs = JSON.parse(fs.readFileSync("config.json", "utf8"));
 const porta = configs.porta
 const dinamicPort = (porta || 80);
+const requestCount = {};
 
 const filesServer = __dirname + "/src/";
 const path_pages = filesServer + "pages/";

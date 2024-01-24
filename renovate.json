@@ -6,5 +6,9 @@
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true
-  }
+  },
+  "packageRules": [{
+    "groupName": "all",
+    "automerge": true
+  }]
 }

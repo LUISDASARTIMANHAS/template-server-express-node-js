@@ -1,2 +1,2 @@
-npm install @latest
+npm install
 exit

@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 const path = require("path");
-const bodyParser = require("body-parser");
-const axios = require("axios");
 const multer = require("multer");
 
 const files2 = __dirname + "/src/";

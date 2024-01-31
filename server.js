@@ -11,7 +11,7 @@ const checkHeaderMiddleware = require("./modules/checkHeaderMiddleware.js");
 
 const configs = JSON.parse(fs.readFileSync("config.json", "utf8"));
 const porta = configs.porta
-const dinamicPort = (porta || 80);
+const dinamicPort = (porta || 8080);
 const params = {
   limit: 100,
   maxcount: 200,

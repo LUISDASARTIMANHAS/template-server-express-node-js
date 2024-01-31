@@ -27,4 +27,4 @@ const wsModule = () => {
     })
 }
 
-export default wsModule
+module.exports = wsModule

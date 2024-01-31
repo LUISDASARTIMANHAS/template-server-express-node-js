@@ -1,3 +1,4 @@
+const path = require("path");
 const xss = require("xss");
 const filesServer = __dirname + "/src/";
 const path_pages = filesServer + "pages/";
@@ -60,4 +61,4 @@ function print(keyHeader, key, auth) {
     console.log("----------------------------");
 }
 
-export default checkHeaderMiddleware
+module.exports = checkHeaderMiddleware

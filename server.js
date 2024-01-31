@@ -5,9 +5,9 @@ const app = express();
 const path = require("path");
 const fs = require("fs");
 
-import "./modules/socket.js"
-import corsModule from "./modules/cors.js";
-import checkHeaderMiddleware from "./modules/checkHeaderMiddleware.js";
+const socket = require("./modules/socket.js")
+const corsModule = require("./modules/cors.js");
+const checkHeaderMiddleware = require("./modules/checkHeaderMiddleware.js");
 
 const configs = JSON.parse(fs.readFileSync("config.json", "utf8"));
 const porta = configs.porta
@@ -60,7 +60,7 @@ function autoPages() {
     const host = hosts[i];
     const dominio = host.path;
     const file = host.file;
-    const link = path.join(__dirname, "src","uploads")+"/"+file;
+    const link = path.join(__dirname, "src", "uploads") + "/" + file;
     console.log("SISTEMA <HOST> <PATH>: " + dominio);
     console.log("SISTEMA <HOST> <FILE>: " + link);
 

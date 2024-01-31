@@ -1,12 +1,11 @@
 const express = require("express");
 const ddos = require('ddos')
-const helmet = require('helmet');
 const app = express();
 const path = require("path");
 const fs = require("fs");
 const { File } = require("buffer");
 const wsModule = require("./modules/socket.js")
-const corsModule = require("./modules/cors.js");
+const httpsSecurityMiddleware = require("./modules/httpsSecurityMiddleware.js");
 const checkHeaderMiddleware = require("./modules/checkHeaderMiddleware.js");
 
 const configs = JSON.parse(fs.readFileSync("config.json", "utf8"));
@@ -26,17 +25,9 @@ const pages = require("./pages");
 const emailSys = require("./sys-email");
 app.use(wsModule)
 app.use(limiter.express);
-// Adicione o middleware Helmet para configurar o HSTS
-app.use(
-  helmet.hsts({
-    maxAge: 365 * 24 * 60 * 60,
-    includeSubDomains: true, // incluir subdomínios
-    preload: true, // habilitar preload (opcional)
-  })
-);
 
-app.use(corsModule)
-app.use(checkHeaderMiddleware);
+app.use(httpsSecurityMiddleware)
+app.use((req,res,next) =>{checkHeaderMiddleware(req,res,next)});
 app.use(pages);
 app.use(emailSys);
 autoPages();

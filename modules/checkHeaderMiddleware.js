@@ -10,36 +10,36 @@ const checkHeaderMiddleware = (req, res, next) => {
     const origin = req.headers.referer || req.headers.referrer;
     const keyHeader = req.headers["authorization"];
     const blockedRoutes = configs.blockedRoutes || []
-    const blockRoutesPresent = blockedRoutes.includes(req.path);
+    const blockRoutesPresent = blockedRoutes.some((route) => {
+        // Trata rotas com curingas
+        const regex = new RegExp(`^${route.replace(/\*/g, ".*")}$`);
+        return regex.test(req.path);
+    });
     const payload = JSON.stringify(req.body, null, 2);
-    const key = configs.key;
-    const key2 = configs.key2;
-    const key3 = configs.keyApp;
+    const keys = [
+        configs.key,
+        configs.key2,
+        configs.keyApp
+    ];
+    const validKey = keys.some((key) => keyHeader === key);
+    const auth = blockRoutesPresent && !validKey;
 
-    const validKey = keyHeader === key;
-    const validKey2 = keyHeader === key2;
-    const validKey3 = keyHeader === key3;
-    const auth1 = blockRoutesPresent && !validKey;
-    const auth2 = blockRoutesPresent && !validKey2;
-    const auth3 = blockRoutesPresent && !validKey3;
-    for (const key in req.body) {
-        req.body[key] = xss(req.body[key]);
-    }
-
-    console.log("SISTEMA <CHAVES DE ACESSO 1>: " + key);
-    console.log("SISTEMA <CHAVES DE ACESSO 2>: " + key2);
-    console.log("SISTEMA <CHAVES DE ACESSO 3>: " + key3);
     console.log("-------------------------");
     console.log("SISTEMA <CHECK> <OBTER>: " + req.url);
     console.log("SISTEMA <ORIGEM>: " + origin);
     console.log("SISTEMA <PAYLOAD>: " + payload);
-    if (auth1 && auth2 && auth3) {
+    keys.forEach((key) => {
+        const auth = keyHeader === key;
+        print(keyHeader, key, auth);
+    });
+    for (const key in req.body) {
+        req.body[key] = xss(req.body[key]);
+    }
+    if (auth) {
         // Se estiver solicitando das rotas bloqueadas E não conter key, bloquea a solicitação
-        print(keyHeader, key, auth1);
         forbidden(res);
     } else {
         // Cabeçalho "solicitador" presente ou rota não bloqueada, permite o acesso
-        print(keyHeader, key, auth1);
         next();
     }
 };

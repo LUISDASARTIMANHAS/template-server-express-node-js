@@ -1,7 +1,7 @@
 {
     "porta": 3000,
-    "WSSystem":{
-        "portWS":255,
+    "wsSystem":{
+        "portWS":null,
         "enabled":true,
         "WSS":false
     },

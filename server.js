@@ -4,9 +4,10 @@ const helmet = require('helmet');
 const app = express();
 const path = require("path");
 const fs = require("fs");
+const { File } = require("buffer");
+const wsModule = require("./modules/socket.js")
+const corsModule = require("./modules/cors.js");
 const checkHeaderMiddleware = require("./modules/checkHeaderMiddleware.js");
-require("./modules/socket.js")
-require("./modules/cors.js");
 
 const configs = JSON.parse(fs.readFileSync("config.json", "utf8"));
 const porta = configs.porta
@@ -23,8 +24,7 @@ const limiter = new ddos(params)
 const rotas = require("./rotas");
 const pages = require("./pages");
 const emailSys = require("./sys-email");
-const { File } = require("buffer");
-
+app.use(wsModule)
 app.use(limiter.express);
 // Adicione o middleware Helmet para configurar o HSTS
 app.use(
@@ -35,7 +35,7 @@ app.use(
   })
 );
 
-
+app.use(corsModule)
 app.use(checkHeaderMiddleware);
 app.use(pages);
 app.use(emailSys);

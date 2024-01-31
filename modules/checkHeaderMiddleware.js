@@ -1,3 +1,5 @@
+const fs = require("fs");
+const configs = JSON.parse(fs.readFileSync("config.json", "utf8"));
 const path = require("path");
 const xss = require("xss");
 const filesServer = __dirname + "/src/";
@@ -33,11 +35,11 @@ const checkHeaderMiddleware = (req, res, next) => {
     console.log("SISTEMA <PAYLOAD>: " + payload);
     if (auth1 && auth2 && auth3) {
         // Se estiver solicitando das rotas bloqueadas E não conter key, bloquea a solicitação
-        print(keyHeader, key, key2, key3, auth1, auth2, auth3);
+        print(keyHeader, key, auth1);
         forbidden(res);
     } else {
         // Cabeçalho "solicitador" presente ou rota não bloqueada, permite o acesso
-        print(keyHeader, key, key2, key3, auth1, auth2, auth3);
+        print(keyHeader, key, auth1);
         next();
     }
 };

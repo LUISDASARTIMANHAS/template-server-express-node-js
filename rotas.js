@@ -3,6 +3,7 @@ const router = express.Router();
 const fs = require("fs");
 const path = require("path");
 const multer = require("multer");
+const {fetchGet,fetchPost} = require("./modules/fetchModule.js");
 
 const files2 = __dirname + "/src/";
 const path_pages = files2 + "pages/";

@@ -7,6 +7,7 @@ const { File } = require("buffer");
 const wsModule = require("./modules/socket.js")
 const httpsSecurityMiddleware = require("./modules/httpsSecurityMiddleware.js");
 const checkHeaderMiddleware = require("./modules/checkHeaderMiddleware.js");
+const {fetchGet,fetchPost} = require("./modules/fetchModule.js");
 
 const configs = JSON.parse(fs.readFileSync("config.json", "utf8"));
 const porta = configs.porta
@@ -35,9 +36,14 @@ autoPages();
 
 app.use(rotas);
 
-app.listen(dinamicPort, () => {
-  console.log("Servidor rodando em http://localhost:" + dinamicPort);
-});
+var server = app.listen(dinamicPort, function () {
+
+  var host = server.address().address
+  var port = server.address().port
+
+  console.log("Servidor rodando em http://%s:%s",hostname, port);
+  console.log("IP Obtido: http://%s:%s",host, port);
+})
 
 //auto page loader
 function autoPages() {

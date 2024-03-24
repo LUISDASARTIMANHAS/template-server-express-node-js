@@ -1,9 +1,4 @@
-const fs = require("fs");
-const path = require("path");
 const fetch = require("node-fetch");
-const filesServer = __dirname + "/../src/";
-const path_pages = filesServer + "pages/";
-const forbiddenFilePath = path.join(path_pages, "forbidden.html");
 const headersDefault = {
   "Content-Type": "application/json",
   "x-forwarded-proto": "https,http,http",
@@ -20,10 +15,9 @@ async function fetchGet(url, header) {
     };
     console.log("FETCH GET", url);
     const response = await fetch(url, requestOptions);
-    const data = await response;
 
     // Faça algo com os dados recebidos
-    return data;
+    return response;
   } catch (error) {
     console.error("Erro ao fazer a requisição:", error);
     return {
@@ -44,10 +38,9 @@ async function fetchPost(url, payload, header) {
     };
     console.log("FETCH POST", url);
     const response = await fetch(url, requestOptions);
-    const data = await response;
 
     // Faça algo com os dados recebidos
-    return data;
+    return response;
   } catch (error) {
     console.error("Erro ao fazer a requisição:", error);
     return {

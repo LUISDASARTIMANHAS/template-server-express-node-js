@@ -8,6 +8,7 @@ const wsModule = require("./modules/socket.js")
 const httpsSecurityMiddleware = require("./modules/httpsSecurityMiddleware.js");
 const checkHeaderMiddleware = require("./modules/checkHeaderMiddleware.js");
 const {fetchGet,fetchPost} = require("./modules/fetchModule.js");
+const sendMail = require("./modules/emailModule.js");
 
 const configs = JSON.parse(fs.readFileSync("config.json", "utf8"));
 const porta = configs.porta

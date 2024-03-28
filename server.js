@@ -12,6 +12,7 @@ const sendMail = require("./modules/emailModule.js");
 
 const configs = JSON.parse(fs.readFileSync("config.json", "utf8"));
 const porta = configs.porta
+const hostname = "localhost"
 const dinamicPort = (porta || 8080);
 const params = {
   limit: 100,

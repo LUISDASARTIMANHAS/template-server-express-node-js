@@ -1,15 +1,30 @@
 const nodemailer = require("nodemailer");
+const fs = require("fs");
 const configs = JSON.parse(fs.readFileSync("config.json", "utf8"));
 const configMail = configs.emailSystem
-const transporter = nodemailer.createTransport({
-    host: configMail.host,
-    port: configMail.port,
-    secure: configMail.ssl_tls, // SSL/TLS ativado
-    auth: {
-        user: configMail.user,
-        pass: configMail.pass
-    }
-});
+let transporter;
+
+if (nodemailer.createTransport({ service: configMail.service })) {
+    // Se o serviço estiver entre os suportados pelo Nodemailer, use createTransport com o serviço
+    transporter = nodemailer.createTransport({
+        service: configMail.service || "Gmail",
+        auth: {
+            user: configMail.user,
+            pass: configMail.pass
+        }
+    });
+} else {
+    // Caso contrário, crie o transporte manualmente
+    transporter = nodemailer.createTransport({
+        host: configMail.host,
+        port: configMail.port,
+        secure: configMail.ssl_tls, // SSL/TLS ativado
+        auth: {
+            user: configMail.user,
+            pass: configMail.pass
+        }
+    });
+}
 
 function sendMail(email, subject, text, callback) {
     try {

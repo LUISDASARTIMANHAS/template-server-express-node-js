@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 const path = require("path");
-const nodemailer = require("nodemailer");
+const sendMail = require("./modules/emailModule.js");
 
 const files2 = __dirname + "/src/";
 const path_pages = files2 + "pages/";
@@ -11,14 +11,6 @@ const notFoundFilePath = path.join(path_pages, "not-found.html");
 
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
-
-const transporter = nodemailer.createTransport({
-  service: "Gmail",
-  auth: {
-    user: "this is the email of your company", // Seu endereço de e-mail
-    pass: "authorization of google", // Sua senha do e-mail
-  },
-});
 
 // Rota para recuperar senha perdida
 router.post("/recuperar=senha", (req, res) => {
@@ -74,23 +66,20 @@ function recuperarSenha(email, novaSenha) {
 
     // Verifica se o usuário e senha correspondem aos valores no vetor
     if (authUser) {
-      const mailOptions = {
-        from: "PINGOBRASSA@gmail.com", // Remetente
-        to: email, // Destinatário
-        subject: "SISTEMA: RECUPERAR SENHA",
-        text:
-          "Olá! " +
-          "\n" +
-          "Você solicitou a recuperação de senha para sua conta." +
-          "\n" +
-          "Sua nova senha é: " +
-          novaSenha +
-          "\n \n" +
-          "Se você solicitou a recuperação de senha, nenhuma ação é necessária." +
-          "\n \n \n" +
-          "Atenciosamente, PINGOBRAS S.A",
-      };
-      transporter.sendMail(mailOptions, (error, info) => {
+      const text = `Olá!
+          \n
+          Você solicitou a recuperação de senha para sua conta." +
+          \n
+          Sua nova senha é: ${novaSenha}
+          \n
+          \n
+          Se você solicitou a recuperação de senha, nenhuma ação é necessária.
+          \n
+          \n
+          \n
+          Atenciosamente, PINGOBRAS S.A`
+
+      sendMail(email, "SISTEMA: RECUPERAR SENHA", text, (error, info) => {
         if (error) {
           console.log("SERVIDOR: Erro ao enviar o e-mail:", error);
         } else {
@@ -128,26 +117,23 @@ function restaurarConta(email) {
 
     // Verifica se o usuário e senha correspondem aos valores no vetor
     if (authUser) {
-      const mailOptions = {
-        from: "PINGOBRASSA@gmail.com", // Remetente
-        to: email, // Destinatário
-        subject: "SISTEMA: RESTAURAR CONTA", // subtitle 
-        text:
-          "Olá! " +
-          "\n" +
-          "Você solicitou a restauração para sua conta." +
-          "\n" +
-          "Seu novo usuário é: " +
-          mudar +
-          "\n" +
-          "Sua nova senha é: " +
-          mudar +
-          "\n \n" +
-          "Se você solicitou a restauração, nenhuma ação é necessária." +
-          "\n \n \n" +
-          "Atenciosamente, PINGOBRAS S.A",
-      };
-      transporter.sendMail(mailOptions, (error, info) => {
+      const text =
+          `Olá!
+          \n
+          Você solicitou a restauração para sua conta.
+          \n
+          "Seu novo usuário é: ${mudar}
+          \n
+          Sua nova senha é: ${mudar}
+          \n
+          \n
+          Se você solicitou a restauração, nenhuma ação é necessária.
+          \n
+          \n
+          \n
+          Atenciosamente, PINGOBRAS S.A`
+
+      sendMail(email, "SISTEMA: RESTAURAR CONTA", text, (error, info) => {
         if (error) {
           console.log("SERVIDOR: Erro ao enviar o e-mail:", error);
         } else {

@@ -11,5 +11,13 @@
     "keyApp":"key For &application",
     "blockedRoutes": [
         "/my-private-route"
-    ]
+    ],
+    "emailSystem":{
+        "service": "Gmail",
+        "host":null,
+        "port":null,
+        "ssl_tls":true,
+        "user":"",
+        "pass":""
+    }
 }

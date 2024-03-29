@@ -6,7 +6,7 @@ const headersDefault = {
   "accept-encoding": "gzip",
 };
 
-async function fetchGet(url, header) {
+async function fetchGet(url, header, callback) {
   try {
     const newHeaders = Object.assign(headersDefault, header);
     const requestOptions = {
@@ -15,20 +15,31 @@ async function fetchGet(url, header) {
     };
     console.log("FETCH GET", url);
     const response = await fetch(url, requestOptions);
+    const contentType = response.headers.get("content-type");
+    
+    // Verifica se houve erro na resposta
+    if (!response.ok) {
+      throw new Error(`${response.status} ${response.statusText}`);
+    }
 
-    // Faça algo com os dados recebidos
-    return response;
+    // Verifica o tipo de conteúdo retornado
+    if (contentType && contentType.includes("application/json")) {
+      // Se for JSON, retorna o JSON
+      const jsonData = await response.json();
+      callback(null, jsonData);
+    } else {
+      // Se não for JSON, retorna o conteúdo como texto
+      const textData = await response.text();
+      callback(null, textData);
+    }
   } catch (error) {
-    console.error("Erro ao fazer a requisição:", error);
-    return {
-      statusText: `Erro ao fazer a requisição: ${error}`,
-      status: 400,
-    };
+    console.error("Erro ao fazer a requisição: ", error);
+    callback(error, null);
   }
 }
 
 
-async function fetchPost(url, payload, header) {
+async function fetchPost(url, payload, header, callback) {
   try {
     const newHeaders = Object.assign(headersDefault, header);
     const requestOptions = {
@@ -38,15 +49,26 @@ async function fetchPost(url, payload, header) {
     };
     console.log("FETCH POST", url);
     const response = await fetch(url, requestOptions);
+    const contentType = response.headers.get("content-type");
+    
+    // Verifica se houve erro na resposta
+    if (!response.ok) {
+      throw new Error(`${response.status} ${response.statusText}`);
+    }
 
-    // Faça algo com os dados recebidos
-    return response;
+    // Verifica o tipo de conteúdo retornado
+    if (contentType && contentType.includes("application/json")) {
+      // Se for JSON, retorna o JSON
+      const jsonData = await response.json();
+      callback(null, jsonData);
+    } else {
+      // Se não for JSON, retorna o conteúdo como texto
+      const textData = await response.text();
+      callback(null, textData);
+    }
   } catch (error) {
     console.error("Erro ao fazer a requisição:", error);
-    return {
-      statusText: `Erro ao fazer a requisição: ${error}`,
-      status: 400,
-    };
+    callback(error, null);
   }
 }
 

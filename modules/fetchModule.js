@@ -1,4 +1,4 @@
-const {fetch} = require("node-fetch");
+const fetch = require("node-fetch");
 const headersDefault = {
   "x-forwarded-proto": "https,http,http",
   "x-forwarded-port": "443,80,80",

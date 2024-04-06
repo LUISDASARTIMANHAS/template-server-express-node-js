@@ -34,6 +34,7 @@
     "npm"
   ],
   "author": "LUIS DAS ARTIMANHAS",
+  "type": "commonjs",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LUISDASARTIMANHAS/template-server-express-node-js.git"

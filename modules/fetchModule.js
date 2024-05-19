@@ -1,4 +1,5 @@
 const fetch = require("node-fetch");
+
 const headersDefault = {
   "x-forwarded-proto": "https,http,http",
   "x-forwarded-port": "443,80,80",
@@ -11,14 +12,21 @@ function fetchGet(url, header, callback) {
     method: "GET",
     headers: newHeaders,
   };
-  console.log("FETCH GET", url);
+
+  console.log("FETCH GET:", url);
   fetch(url, requestOptions)
     .then((response) => {
+      console.log("Status da resposta:", response.status, response.statusText);
       const contentType = response.headers.get("content-type");
+      console.log("Tipo de conteúdo:", contentType);
+
       // Verifica se houve erro na resposta
       if (!response.ok) {
-        throw new Error(`${response.status} ${response.statusText}`);
+        return response.json().then((errorData) => {
+          throw new Error(`Erro na resposta do servidor: ${JSON.stringify(errorData, null, 2)}`);
+        });
       }
+
       // Verifica o tipo de conteúdo retornado
       if (contentType && contentType.includes("application/json")) {
         // Se for JSON, retorna o JSON
@@ -30,6 +38,7 @@ function fetchGet(url, header, callback) {
     })
     .then((data) => {
       console.log("FETCH GET RECEBIDO! OK 200");
+      console.log("Dados recebidos:", data);
       callback(null, data);
     })
     .catch((error) => {
@@ -43,28 +52,34 @@ function fetchPost(url, payload, header, callback) {
     "content-type": `application/json; charset=UTF-8`,
   };
   var newHeaders = headersDefault;
-  newHeaders = Object.assign(headersDefault,header || defaultContentType);
+  newHeaders = Object.assign(headersDefault, header || defaultContentType);
   const requestOptions = {
     method: "POST",
     headers: newHeaders,
     body: payload,
   };
-  
-  if(newHeaders['content-type'] == "application/json; charset=UTF-8"){
-        console.log("Convertendo payload para json!");
-        payload = JSON.stringify(payload);
-    }
-  
+
+  if (newHeaders["content-type"] == "application/json; charset=UTF-8") {
+    console.log("Convertendo payload para JSON!");
+    requestOptions.body = JSON.stringify(payload);
+  }
+
   console.log("FETCH POST", url);
+  console.log("FETCH POST PAYLOAD: ", requestOptions.body);
   fetch(url, requestOptions)
     .then((response) => {
+      console.log("Status da resposta:", response.status, response.statusText);
       const contentType = response.headers.get("content-type");
+      console.log("Tipo de conteúdo:", contentType);
+
       // Verifica se houve erro na resposta
       if (!response.ok) {
-        console.error(response);
-        throw new Error(`${response.status} ${response.statusText}`);
+        return response.json().then((errorData) => {
+          throw new Error(JSON.stringify(errorData, null, 2));
+        });
       }
-      // Verifica o tipo de conteúdo retornado
+
+      // // Verifica o tipo de conteúdo retornado
       if (contentType && contentType.includes("application/json")) {
         // Se for JSON, retorna o JSON
         return response.json();
@@ -75,6 +90,7 @@ function fetchPost(url, payload, header, callback) {
     })
     .then((data) => {
       console.log("FETCH POST ENVIADO! OK 200");
+      console.log("Dados recebidos:", data);
       callback(null, data);
     })
     .catch((error) => {

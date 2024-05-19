@@ -1,11 +1,11 @@
 const express = require("express");
 const expressWs = require('express-ws');
 const path = require("path");
-const fs = require("fs");
+const { fopen, fwrite } = require("../modules/autoFileSysModule.js");
 const app = express();
 const router = express.Router();
 const wsInstance = expressWs(app);
-const configs = JSON.parse(fs.readFileSync("config.json", "utf8"));
+const configs = fopen("config.json");
 const wsConfig = configs.wsSystem;
 
 const port = wsConfig.portWS || 2255;

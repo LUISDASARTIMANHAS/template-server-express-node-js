@@ -7,45 +7,51 @@ const { File } = require("buffer");
 const wsModule = require("./modules/socket.js")
 const httpsSecurityMiddleware = require("./modules/httpsSecurityMiddleware.js");
 const checkHeaderMiddleware = require("./modules/checkHeaderMiddleware.js");
-const {fetchGet,fetchPost} = require("./modules/fetchModule.js");
+const { fetchGet, fetchPost } = require("./modules/fetchModule.js");
+const ddosModule = require("./modules/ddosModule.js");
 const sendMail = require("./modules/emailModule.js");
 
 const configs = JSON.parse(fs.readFileSync("config.json", "utf8"));
+const routesDir = __dirname;
 const porta = configs.porta
+const autoporta = configs.autoporta;
 const hostname = "localhost"
 const dinamicPort = (porta || 8080);
-const params = {
-  limit: 100,
-  maxcount: 200,
-  trustProxy: true,
-  includeUserAgent: true,
-  whitelist: [],
-  testmode: false
-};
-const limiter = new ddos(params)
-const rotas = require("./rotas");
-const pages = require("./pages");
-const emailSys = require("./sys-email");
-app.use(wsModule)
-app.use(limiter.express);
 
-app.use(httpsSecurityMiddleware)
-app.use((req,res,next) =>{checkHeaderMiddleware(req,res,next)});
-app.use(pages);
-app.use(emailSys);
+app.use(wsModule);
+app.use(httpsSecurityMiddleware);
+app.use(ddosModule().express);
+app.use((req, res, next) => {
+  checkHeaderMiddleware(req, res, next);
+});
 autoPages();
-//add here others files to load / adicione aqui outros arquivos para carregar
 
-app.use(rotas);
+// Carrega dinamicamente todos os módulos de rota
+fs.readdirSync(routesDir).forEach(file => {
+  const filePath = path.join(routesDir, file);
+    if (file.endsWith('.js') && file !== 'server.js') {
+        const route = require(filePath);
+        app.use(route);
+      console.log(`Carregando arquivo ${file} automaticamente!`)
+    }
+});
+if (autoporta) {
+  var server = app.listen(() => {
+    getServerAddress();
+  });
+} else {
+  var server = app.listen(dinamicPort, () => {
+    getServerAddress();
+  });
+}
 
-var server = app.listen(dinamicPort, function () {
+function getServerAddress() {
+  var host = server.address().address;
+  var port = server.address().port;
 
-  var host = server.address().address
-  var port = server.address().port
-
-  console.log("Servidor rodando em http://%s:%s",hostname, port);
-  console.log("IP Obtido: http://%s:%s",host, port);
-})
+  console.log("Servidor rodando em http://%s:%s", hostname, port);
+  console.log("IP Obtido: http://%s:%s", host, port);
+}
 
 //auto page loader
 function autoPages() {

@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
-const fs = require("fs");
-const configs = JSON.parse(fs.readFileSync("config.json", "utf8"));
+const { fopen, fwrite } = require("../modules/autoFileSysModule.js");
+const configs = fopen("config.json");
 const configMail = configs.emailSystem
 let transporter;
 

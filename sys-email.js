@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const fs = require("fs");
+const { fopen, fwrite } = require("./modules/autoFileSysModule.js");
 const path = require("path");
 const sendMail = require("./modules/emailModule.js");
 
@@ -77,7 +77,7 @@ function recuperarSenha(email, novaSenha) {
           \n
           \n
           \n
-          Atenciosamente, PINGOBRAS S.A`
+          Atenciosamente, Equipe Administrativa.`
 
       sendMail(email, "SISTEMA: RECUPERAR SENHA", text, (error, info) => {
         if (error) {
@@ -131,7 +131,7 @@ function restaurarConta(email) {
           \n
           \n
           \n
-          Atenciosamente, PINGOBRAS S.A`
+          Atenciosamente, Equipe Administrativa.`
 
       sendMail(email, "SISTEMA: RESTAURAR CONTA", text, (error, info) => {
         if (error) {

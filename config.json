@@ -1,5 +1,6 @@
 {
     "porta": null,
+    "autoporta": true,
     "wsSystem":{
         "portWS":null,
         "enabled":true,

@@ -41,9 +41,7 @@ app.use((req, res, next) => {
   }
   next();
 });
-autoEditais(dia, dia7, mes, ano);
 checkHeaderMiddleware(app);
-app.use(pingobrasSystems);
 
 // Carrega dinamicamente todos os módulos de rota
 fs.readdirSync(routesDir).forEach(file => {

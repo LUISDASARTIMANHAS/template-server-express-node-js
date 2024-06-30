@@ -65,7 +65,6 @@ function fetchPost(url, payload, header, callback) {
   }
 
   console.log("FETCH POST", url);
-  console.log("FETCH POST PAYLOAD: ", requestOptions.body);
   fetch(url, requestOptions)
     .then((response) => {
       console.log("Status da resposta:", response.status, response.statusText);
@@ -100,13 +99,20 @@ function fetchPost(url, payload, header, callback) {
 }
 
 function discordLogs(title, mensagem) {
+  const date = new Date();
+  const ano = date.getFullYear();
   const preSet = {
     content: "",
     embeds: [
       {
         title: `SERVIDOR/${title}`,
         description: "SERVIDOR: " + mensagem,
-        color: 16711935,
+        color: parseInt("FFFFFF", 16),
+        timestamp: date, // Adiciona um timestamp atual
+        footer: {
+          text: `₢Todos os Direitos Reservados - ${ano}`,
+          icon_url: "",
+        },
       },
     ],
     attachments: [],

@@ -5,9 +5,7 @@
         "WSS":false
     },
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-    "key":"key1",
-    "key2":"key2",
-    "keyApp":"key For &application",
+    "defaultKeys":["ROOT:admnin","ROOT:apiUser"],
     "blockedRoutes": [
         "/my-private-route"
     ],

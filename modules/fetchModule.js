@@ -99,4 +99,23 @@ function fetchPost(url, payload, header, callback) {
     });
 }
 
-module.exports = { fetchGet, fetchPost };
+function discordLogs(title, mensagem) {
+  const preSet = {
+    content: "",
+    embeds: [
+      {
+        title: `SERVIDOR/${title}`,
+        description: "SERVIDOR: " + mensagem,
+        color: 16711935,
+      },
+    ],
+    attachments: [],
+  };
+  fetchPost(process.env.DISCORD_LOGS_WEBHOOK_URL, preSet, null, (error, data) => {
+    if (error) {
+      console.error(error);
+    }
+  });
+}
+
+module.exports = { fetchGet, fetchPost, discordLogs };

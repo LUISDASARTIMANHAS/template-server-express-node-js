@@ -9,8 +9,8 @@ if (nodemailer.createTransport({ service: configMail.service })) {
     transporter = nodemailer.createTransport({
         service: configMail.service || "Gmail",
         auth: {
-            user: configMail.user,
-            pass: configMail.pass
+            user: process.env.email_server,
+            pass: process.env.email_password
         }
     });
 } else {
@@ -20,8 +20,8 @@ if (nodemailer.createTransport({ service: configMail.service })) {
         port: configMail.port,
         secure: configMail.ssl_tls, // SSL/TLS ativado
         auth: {
-            user: configMail.user,
-            pass: configMail.pass
+            user: process.env.email_server,
+            pass: process.env.email_password
         }
     });
 }
@@ -29,7 +29,7 @@ if (nodemailer.createTransport({ service: configMail.service })) {
 function sendMail(email, subject, text, callback) {
     try {
         const mailOptions = {
-            from: configMail.user, // Remetente
+            from: process.env.email_server, // Remetente
             to: email, // Destinatário
             subject: subject,
             text: text,

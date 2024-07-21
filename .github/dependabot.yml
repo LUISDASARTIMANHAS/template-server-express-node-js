@@ -1,11 +1,14 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
-
 version: 2
 updates:
-  - package-ecosystem: "npm" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: "npm"  # ou "github-actions", "docker" etc., dependendo do seu ambiente
+    directory: "/"
     schedule:
-      interval: "daily"
+      interval: "daily"  # ou "weekly", "monthly", etc.
+    open-pull-requests-limit: 10  # número máximo de pull requests abertos
+    auto-merge:
+      merge-method: "merge"  # ou "squash", "rebase"
+      commit-message:
+        prefix: "Dependabot auto-merge"
+    labels:
+      - "dependabot"  # opcional, para adicionar rótulos aos pull requests do Dependabot
+      - "dependencies"

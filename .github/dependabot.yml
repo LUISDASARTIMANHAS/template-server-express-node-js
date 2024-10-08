@@ -3,7 +3,7 @@ updates:
   - package-ecosystem: "npm"  # ou "github-actions", "docker" etc., dependendo do seu ambiente
     directory: "/"
     schedule:
-      interval: "daily"  # ou "weekly", "monthly", etc.
+      interval: "weekly"  # ou "weekly", "monthly", etc.
     open-pull-requests-limit: 10  # número máximo de pull requests abertos
     auto-merge:
       merge-method: "merge"  # ou "squash", "rebase"

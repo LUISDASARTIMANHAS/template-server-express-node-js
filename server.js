@@ -12,7 +12,10 @@ const checkHeaderMiddleware = require("./modules/checkHeaderMiddleware.js");
 const ddosModule = require("./modules/ddosModule.js");
 const { fetchGet, fetchPost, discordLogs } = require("./modules/fetchModule.js");
 const { fopen, fwrite, freadBin, fwriteBin } = require("./modules/autoFileSysModule.js");
-const hostname = "localhost"
+// const hostname = "127.0.0.1"; só local 
+// const hostname = "0.0.0.0"; Bind na placa de rede
+// const hostname = "::"; bind ipv4 e ipv6 pra fora
+const hostname = "::";
 const porta = process.env.PORTA;
 const dinamicPort = (porta || 8080);
 

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const fs = require("fs");
+const os = require("os");
 const path = require("path");
 
 const files = __dirname + "/src/";
@@ -19,6 +20,23 @@ console.log("LOAD STATIC ITENS: " + path_pages);
 router.get("/", (req, res) => {
   console.log("SISTEMA <OBTER> <SITE>: " + req.url);
   res.sendFile(indexFilePath);
+});
+
+router.get('/status', (req, res) => {
+  const healthCheck = {
+    uptime: process.uptime(),
+    message: 'OK',
+    timestamp: Date.now(),
+    cpuUsage: os.loadavg(),
+    memoryUsage: process.memoryUsage(),
+  };
+
+  try {
+    res.json(healthCheck);
+  } catch (e) {
+    healthCheck.message = e;
+    res.status(503).send();
+  }
 });
 
 router.get("/host", (req, res) => {

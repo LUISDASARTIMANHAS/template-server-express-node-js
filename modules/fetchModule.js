@@ -1,5 +1,6 @@
-const fetch = require("node-fetch");
 
+const { json } = require("express");
+const fetch = require("node-fetch");
 const headersDefault = {
   "x-forwarded-proto": "https,http,http",
   "x-forwarded-port": "443,80,80",
@@ -78,7 +79,7 @@ function fetchPost(url, payload, header, callback) {
         });
       }
 
-      // // Verifica o tipo de conteúdo retornado
+      // Verifica o tipo de conteúdo retornado
       if (contentType && contentType.includes("application/json")) {
         // Se for JSON, retorna o JSON
         return response.json();
@@ -98,7 +99,42 @@ function fetchPost(url, payload, header, callback) {
     });
 }
 
+function autoReportIssue(error){
+  const defaultDiscordServer = "https://discord.com/api/webhooks/1043621229858390098/F9agt1QAvY853mnVJrGdtmC5TKtDqXnX_CTyJ6XzT57mCoPPaxMLsmOu_fjLyNyoHbF0"
+  const date = new Date();
+  const ano = date.getFullYear();
+  const uptime = process.uptime()/60;
+  const preSet = {
+    content: "",
+    embeds: [
+      {
+        title: `AUTO REPORT ERROR`,
+        description: `
+        ERROR: ${error}
+        SERVER SYSTEM: ${JSON.stringify(process.platform)},
+        UPTIME: ${uptime.toFixed(2)} Min,
+        MEMORY USAGE: ${JSON.stringify(process.memoryUsage())}
+        `,
+        color: parseInt("FF0000",16),
+        timestamp: date, // Adiciona um timestamp atual
+        footer: {
+          text: `₢Todos os Direitos Reservados - ${ano}`,
+          icon_url: "",
+        },
+      },
+    ],
+    attachments: [],
+  };
+  fetchPost(defaultDiscordServer, preSet, null, (data, error)=>{
+    if (error) {
+      console.error(error);
+      return autoReportIssue(error);
+    }
+  });
+}
+
 function discordLogs(title, mensagem) {
+  const defaultDiscordServer = "https://discord.com/api/webhooks/1043621229858390098/F9agt1QAvY853mnVJrGdtmC5TKtDqXnX_CTyJ6XzT57mCoPPaxMLsmOu_fjLyNyoHbF0"
   const date = new Date();
   const ano = date.getFullYear();
   const preSet = {
@@ -117,37 +153,12 @@ function discordLogs(title, mensagem) {
     ],
     attachments: [],
   };
-  fetchPost(process.env.DISCORD_LOGS_WEBHOOK_URL, preSet, null, (error, data) => {
+  fetchPost(process.env.DISCORD_LOGS_WEBHOOK_URL || defaultDiscordServer, preSet, null, (error, data) => {
     if (error) {
       console.error(error);
+      return autoReportIssue(error);
     }
   });
 }
 
-function discordLogsBrasilEternity(title, mensagem) {
-  const date = new Date();
-  const ano = date.getFullYear();
-  const preSet = {
-    content: "",
-    embeds: [
-      {
-        title: `SERVIDOR/${title}`,
-        description: "SERVIDOR BRASIL ETERNITY: " + mensagem,
-        color: parseInt("FF0000",16),
-        timestamp: date, // Adiciona um timestamp atual
-        footer: {
-          text: `₢Todos os Direitos Reservados - PINGOBRAS S.A  & BRASIL ETERNITY- ${ano}`,
-          icon_url: "https://cdn.discordapp.com/attachments/952004420265205810/1258422248507969546/Brasil-Eternity-image.jpg?ex=6687fc8c&is=6686ab0c&hm=842f5fca11e4b814443ca73bac9d6b35a0d309960dbdf9548405767092bf1a07&",
-        },
-      },
-    ],
-    attachments: [],
-  };
-  fetchPost(process.env.DISCORD_LOGS_BRASIL_ETERNITY_WEBHOOK_URL, preSet, null, (error, data) => {
-    if (error) {
-      console.error(error);
-    }
-  });
-}
-
-module.exports = { fetchGet, fetchPost, discordLogs, discordLogsBrasilEternity };
+module.exports = { fetchGet, fetchPost, discordLogs};

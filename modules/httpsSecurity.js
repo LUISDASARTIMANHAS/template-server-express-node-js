@@ -5,12 +5,18 @@ function httpsSecurityMiddleware(req, res, next) {
   console.log("executando https security");
   const corsOptions = {
     origin: [
-      /^https:\/\/.+/,
-      /^http:\/\/.+/,
-      "https://discord.com"
+      /^https:\/\/.+/
     ],
     methods: "GET,PUT,POST,DELETE",
-    allowedHeaders: ["Content-Type", "authorization", "id", "key"],
+    allowedHeaders: [
+      "Content-Type",
+      "Access-Control-Allow-Origin",
+      "authorization",
+      "id",
+      "key",
+      "urlParams",
+      "cache-control",
+    ],
     optionsSuccessStatus: 204,
   };
   const hstsOptions = {
@@ -23,6 +29,7 @@ function httpsSecurityMiddleware(req, res, next) {
   cors(corsOptions)(req, res, () => {
     // Configurar cabeçalhos de resposta para OPTIONS
     if (req.method === "OPTIONS") {
+      console.log("SISTEMA OPTIONS CORS");
       res.set("Access-Control-Allow-Origin", corsOptions.origin);
       res.set("Access-Control-Allow-Methods", corsOptions.methods);
       res.set("Access-Control-Allow-Headers", corsOptions.allowedHeaders);

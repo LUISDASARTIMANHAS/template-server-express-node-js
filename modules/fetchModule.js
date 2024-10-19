@@ -30,7 +30,7 @@ function fetchGet(url, header, callback) {
       // Verifica o tipo de conteúdo retornado
       if (contentType && contentType.includes("application/json")) {
         // Se for JSON, retorna o JSON
-        return response.json();
+        return response.text();
       } else {
         // Se não for JSON, retorna o conteúdo como texto
         return response.text();
@@ -107,7 +107,7 @@ function discordLogs(title, mensagem) {
       {
         title: `SERVIDOR/${title}`,
         description: "SERVIDOR: " + mensagem,
-        color: parseInt("FFFFFF", 16),
+        color: parseInt("FFFFFF",16),
         timestamp: date, // Adiciona um timestamp atual
         footer: {
           text: `₢Todos os Direitos Reservados - ${ano}`,
@@ -124,4 +124,30 @@ function discordLogs(title, mensagem) {
   });
 }
 
-module.exports = { fetchGet, fetchPost, discordLogs };
+function discordLogsBrasilEternity(title, mensagem) {
+  const date = new Date();
+  const ano = date.getFullYear();
+  const preSet = {
+    content: "",
+    embeds: [
+      {
+        title: `SERVIDOR/${title}`,
+        description: "SERVIDOR BRASIL ETERNITY: " + mensagem,
+        color: parseInt("FF0000",16),
+        timestamp: date, // Adiciona um timestamp atual
+        footer: {
+          text: `₢Todos os Direitos Reservados - PINGOBRAS S.A  & BRASIL ETERNITY- ${ano}`,
+          icon_url: "https://cdn.discordapp.com/attachments/952004420265205810/1258422248507969546/Brasil-Eternity-image.jpg?ex=6687fc8c&is=6686ab0c&hm=842f5fca11e4b814443ca73bac9d6b35a0d309960dbdf9548405767092bf1a07&",
+        },
+      },
+    ],
+    attachments: [],
+  };
+  fetchPost(process.env.DISCORD_LOGS_BRASIL_ETERNITY_WEBHOOK_URL, preSet, null, (error, data) => {
+    if (error) {
+      console.error(error);
+    }
+  });
+}
+
+module.exports = { fetchGet, fetchPost, discordLogs, discordLogsBrasilEternity };

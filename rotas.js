@@ -3,16 +3,25 @@ const router = express.Router();
 const fs = require("fs");
 const path = require("path");
 const multer = require("multer");
-const {fetchGet,fetchPost} = require("./modules/fetchModule.js");
+const { fetchGet, fetchPost } = require("./modules/fetchModule.js");
+const {
+  getRandomInt,
+  getRandomBin,
+  getRandomHex,
+  generateToken,
+  ordenarUsuario,
+  pesqUsuario,
+  validadeApiKey,
+  unauthorized,
+  forbidden,
+  formatDate,
+  conversorSimEnao,
+} = require("./modules/utils.js");
 
-const files2 = __dirname + "/src/";
-const path_pages = files2 + "pages/";
-const forbiddenFilePath = path.join(path_pages, "forbidden.html");
-const notFoundFilePath = path.join(path_pages, "not-found.html");
 const storagePages = multer.diskStorage({
   destination: (req, file, cb) => {
     // Especifique o diretório onde os arquivos serão salvos
-    const destinationPath = path.join(__dirname, "src","uploads");
+    const destinationPath = path.join(__dirname, "src", "uploads");
     fs.mkdirSync(destinationPath, { recursive: true }); // Cria a pasta 'src/pages' se não existir
     cb(null, destinationPath);
   },
@@ -48,10 +57,10 @@ router.post("/host", upload.single("file"), (req, res) => {
   console.log("SISTEMA <PAYLOAD>: " + JSON.stringify(req.body, null, 2));
 
   // Rota blackhole para lidar com muitas requisições
-router.use('/blackhole', (req, res) => {
-  res.status(429);
-  res.send('Too Many Requests // Muitas Solicitações!');
-});
+  router.use("/blackhole", (req, res) => {
+    res.status(429);
+    res.send("Too Many Requests // Muitas Solicitações!");
+  });
   const database = fs.readFileSync("data/host.json", "utf8");
   const dataHost = JSON.parse(database);
   const payload = req.body;
@@ -73,24 +82,23 @@ router.use('/blackhole', (req, res) => {
       res.status(201);
       res.send(
         "Hospedagem de arquivo cadastrada com sucesso! <a href='" +
-        dominio +
+          dominio +
           "'>Acesse aqui</a>"
       );
-      console.log("Hospedagem de arquivo cadastrada com sucesso! " + dominio)
+      console.log("Hospedagem de arquivo cadastrada com sucesso! " + dominio);
       reiniciarServidor();
     } catch (error) {
       console.error("Erro ao fazer upload do arquivo:", error);
       res.status(500);
       res.send("Ocorreu um erro ao associar o link: " + error.message);
-      console.log("Ocorreu um erro ao associar o link: " + error.message)
+      console.log("Ocorreu um erro ao associar o link: " + error.message);
     }
   } else {
     res.status(400);
     res.send("Já existe um Path (caminho) cadastrado.");
-    console.log("Já existe um Path (caminho) cadastrado.")
+    console.log("Já existe um Path (caminho) cadastrado.");
   }
 });
-
 
 function pesqUserRepetido(nome, user, email) {
   const database = fs.readFileSync("data/users.json", "utf8");
@@ -147,18 +155,6 @@ function pesqPath(path) {
   return currentDB;
 }
 
-function conversorSimEnao(value) {
-  if (value) {
-    return "✔Voce foi autorizado, esta tudo correto";
-  }
-  return "⚠Esta faltando algo ou não foi autorizado!";
-}
-
-function forbidden(res) {
-  res.status(403);
-  res.sendFile(forbiddenFilePath);
-}
-
 // auto page reloader
 function autoPages() {
   const hostJson = fs.readFileSync("data/host.json", "utf8");
@@ -170,7 +166,7 @@ function autoPages() {
     const dominio = host.path;
     const file = host.file;
     const link = path.join(__dirname, "src", "uploads", file);
-    
+
     console.log("SISTEMA <HOST> <PATH>: " + dominio);
     console.log("SISTEMA <HOST> <FILE>: " + link);
 
@@ -181,11 +177,6 @@ function autoPages() {
   }
 }
 autoPages();
-
-// Função para reiniciar o servidor
-function reiniciarServidor() {
-  console.log("Reiniciando...")
-}
 
 // Middleware para lidar com rotas não encontradas (404)
 router.use((req, res, next) => {

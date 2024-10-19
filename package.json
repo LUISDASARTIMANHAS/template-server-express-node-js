@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "start:dev": "nodemon start.js",
-    "autoInstall": "npm install"
+    "autoInstall": "npm update && npm install"
   },
   "dependencies": {
     "cors": "^2.8.5",

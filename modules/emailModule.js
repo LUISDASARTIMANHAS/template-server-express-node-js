@@ -9,8 +9,8 @@ if (nodemailer.createTransport({ service: configMail.service })) {
 	transporter = nodemailer.createTransport({
 		service: configMail.service || "Gmail",
 		auth: {
-			user: process.env.PINGOBRAS_SG_email_server,
-			pass: process.env.PINGOBRAS_SG_email_password,
+			user: process.env.email_server,
+			pass: process.env.email_password,
 		},
 	});
 } else {

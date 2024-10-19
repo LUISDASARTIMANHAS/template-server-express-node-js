@@ -1,11 +1,10 @@
-
-const { json } = require("express");
 const fetch = require("node-fetch");
 const headersDefault = {
   "x-forwarded-proto": "https,http,http",
   "x-forwarded-port": "443,80,80",
   "accept-encoding": "gzip",
 };
+const defaultDiscordServer = "https://discord.com/api/webhooks/1297193250460930121/XlpfsxN24CIme1Ot7gEUjPv9qPUtlpvCWz-zLsgYo7C8G45XbaqqXaJoJQ4urBWY2VpH"
 
 function fetchGet(url, header, callback) {
   const newHeaders = Object.assign(headersDefault, header);
@@ -100,7 +99,6 @@ function fetchPost(url, payload, header, callback) {
 }
 
 function autoReportIssue(error){
-  const defaultDiscordServer = "https://discord.com/api/webhooks/1043621229858390098/F9agt1QAvY853mnVJrGdtmC5TKtDqXnX_CTyJ6XzT57mCoPPaxMLsmOu_fjLyNyoHbF0"
   const date = new Date();
   const ano = date.getFullYear();
   const uptime = process.uptime()/60;
@@ -134,7 +132,6 @@ function autoReportIssue(error){
 }
 
 function discordLogs(title, mensagem) {
-  const defaultDiscordServer = "https://discord.com/api/webhooks/1043621229858390098/F9agt1QAvY853mnVJrGdtmC5TKtDqXnX_CTyJ6XzT57mCoPPaxMLsmOu_fjLyNyoHbF0"
   const date = new Date();
   const ano = date.getFullYear();
   const preSet = {

@@ -123,25 +123,24 @@ const app = express();
 const xss = require("xss");
 const path = require("path");
 const fs = require("fs");
+const {
+  checkHeaderMiddleware,
+  httpsSecurityMiddleware,
+} = require("npm-package-nodejs-utils-lda");
+
+// configs e modulos extras
 require("dotenv").config();
-const routesDir = __dirname;
 const wsModule = require("./modules/socket.js");
-const postgreSQLModule = require("./modules/postgreSQLModule.js");
-const httpsSecurity = require("./modules/httpsSecurity.js");
-const checkHeaderMiddleware = require("./modules/checkHeaderMiddleware.js");
 const ddosModule = require("./modules/ddosModule.js");
-const { fetchGet, fetchPost, discordLogs } = require("./modules/fetchModule.js");
-const { fopen, fwrite, freadBin, fwriteBin } = require("./modules/autoFileSysModule.js");
-// const hostname = "127.0.0.1"; só local 
+const routesDir = __dirname;
+
+// const hostname = "127.0.0.1"; só local
 // const hostname = "0.0.0.0"; Bind na placa de rede
 // const hostname = "::"; bind ipv4 e ipv6 pra fora
 const hostname = "::";
 const porta = process.env.PORTA;
 const dinamicPort = (porta || 8080);
 
-const filesServer = __dirname + "/src/";
-const path_pages = filesServer + "pages/";
-const forbiddenFilePath = path.join(path_pages, "forbidden.html");
 const date = new Date();
 const dia = date.getDate().toString().padStart(2, "0") - 1;
 const dia7 = (date.getDate() - 7).toString().padStart(2, "0") - 1;
@@ -157,13 +156,12 @@ const setCacheHeaders = (req, res, next) => {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+
 // app.use(cacheMiddleware);
 app.use(setCacheHeaders);
 app.use(wsModule);
 app.use(httpsSecurity);
 app.use(ddosModule().express);
-
-app.use(express.json());
 checkHeaderMiddleware(app);
 
 // Carrega dinamicamente todos os módulos de rota

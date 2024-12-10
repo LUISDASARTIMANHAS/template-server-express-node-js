@@ -126,6 +126,7 @@ const fs = require("fs");
 const {
   checkHeaderMiddleware,
   httpsSecurityMiddleware,
+  discordLogs
 } = require("npm-package-nodejs-utils-lda");
 
 // configs e modulos extras
@@ -160,7 +161,7 @@ app.use(express.json());
 // app.use(cacheMiddleware);
 app.use(setCacheHeaders);
 app.use(wsModule);
-app.use(httpsSecurity);
+app.use(httpsSecurityMiddleware);
 app.use(ddosModule().express);
 checkHeaderMiddleware(app);
 

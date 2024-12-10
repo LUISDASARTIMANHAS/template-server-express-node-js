@@ -3,7 +3,7 @@ const router = express.Router();
 const fs = require("fs");
 const path = require("path");
 const multer = require("multer");
-const { fetchGet, fetchPost } = require("./modules/fetchModule.js");
+const { fetchGet, fetchPost } = require("npm-package-nodejs-utils-lda");
 const {
   getRandomInt,
   getRandomBin,
@@ -16,7 +16,7 @@ const {
   forbidden,
   formatDate,
   conversorSimEnao,
-} = require("./modules/utils.js");
+} = require("npm-package-nodejs-utils-lda");
 
 const storagePages = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -31,9 +31,6 @@ const storagePages = multer.diskStorage({
     cb(null, uniqueFilename);
   },
 });
-
-router.use(express.urlencoded({ extended: true }));
-router.use(express.json());
 
 // obter o banco de dados de arquivos hosteados automaticamente
 router.get("/host=data", (req, res) => {

@@ -22,7 +22,7 @@
     "node-fetch": "^2.7.0",
     "nodemailer": "^6.9.16",
     "nodemon": "^3.1.7",
-    "npm-package-nodejs-utils-lda": "^1.0.8",
+    "npm-package-nodejs-utils-lda": "^1.0.11",
     "path": "^0.12.7",
     "pg": "^8.13.1",
     "pm2": "^5.4.3",

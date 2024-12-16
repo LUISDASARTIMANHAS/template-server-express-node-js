@@ -3,12 +3,24 @@ const router = express.Router();
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
+const {
+  getRandomInt,
+  getRandomBin,
+  getRandomHex,
+  generateToken,
+  ordenarUsuario,
+  pesqUsuario,
+  validadeApiKey,
+  unauthorized,
+  forbidden,
+  formatDate,
+  conversorSimEnao,
+} = require("npm-package-nodejs-utils-lda");
 
 const files = __dirname + "/src/";
 const path_css = files + "css/";
 const path_js = files + "js/";
 const path_pages = files + "pages/";
-const forbiddenFilePath = path.join(path_pages, "forbidden.html");
 const indexFilePath = path.join(path_pages, "index.html");
 const hostFilePath = path.join(path_pages, "host.html");
 

@@ -175,9 +175,9 @@ fs.readdirSync(routesDir).forEach(file => {
     }
 });
 var server = app.listen(dinamicPort, hostname , function () {
-
-    var host = server.address().address;
-    var port = server.address().port;
+    const addr = server.address();
+    var host = addr;
+    var port = addr;
     console.log("Servidor rodando em http://%s:%s",hostname, port);
     console.log("IP Obtido: http://%s:%s",host, port);
     discordLogs("START",`Servidor rodando em http://${hostname}:${port}`)

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const rateLimit = require("express-rate-limit");
 const fs = require("fs");
 const path = require("path");
 const multer = require("multer");
@@ -174,6 +175,16 @@ function autoPages() {
   }
 }
 autoPages();
+
+// Configurar rate limiter: máximo de 100 requisições por 15 minutos
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 100, // máximo de 100 requisições por janela
+  message: "Muitas requisições feitas a partir deste IP. Por favor, tente novamente mais tarde.",
+});
+
+// Aplicar rate limiter a todas as rotas
+router.use(limiter);
 
 // Middleware para lidar com rotas não encontradas (404)
 router.use((req, res, next) => {

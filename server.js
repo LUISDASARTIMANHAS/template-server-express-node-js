@@ -120,13 +120,14 @@
 // Indica que o cliente precisa se autenticar para obter acesso à rede.
 const express = require("express");
 const app = express();
-const xss = require("xss");
 const path = require("path");
 const fs = require("fs");
 const {
   checkHeaderMiddleware,
   httpsSecurityMiddleware,
-  discordLogs
+  discordLogs,
+  setCacheHeaders,
+  autoLoader,
 } = require("npm-package-nodejs-utils-lda");
 
 // configs e modulos extras
@@ -139,24 +140,19 @@ const routesDir = __dirname;
 // const hostname = "0.0.0.0"; Bind na placa de rede
 // const hostname = "::"; bind ipv4 e ipv6 pra fora
 const hostname = "::";
-const porta = process.env.PORTA;
-const dinamicPort = (porta || 8080);
+// 0 força o express a pegar uma porta aleatora
+const porta = process.env.PORT;
 
 const date = new Date();
 const dia = date.getDate().toString().padStart(2, "0") - 1;
 const dia7 = (date.getDate() - 7).toString().padStart(2, "0") - 1;
 const mes = (date.getMonth() + 1).toString().padStart(2, "0");
 const ano = date.getFullYear();
-const setCacheHeaders = (req, res, next) => {
-  console.log("Adicionando header Cache de 1 dia")
-  const cacheDuration = 60 * 60 * 24; // 1 dia em segundos
-  res.set('Cache-Control', `public, max-age=${cacheDuration}`);
-  res.set("Cache-time",cacheDuration);
-  next();
-};
+app.use((req, res, next) => {
+  setCacheHeaders(req, res, next);
+});
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 
 // app.use(cacheMiddleware);
 app.use(setCacheHeaders);
@@ -164,24 +160,17 @@ app.use(wsModule);
 app.use(httpsSecurityMiddleware);
 app.use(ddosModule().express);
 checkHeaderMiddleware(app);
+autoLoader(app);
 
-// Carrega dinamicamente todos os módulos de rota
-fs.readdirSync(routesDir).forEach(file => {
-  const filePath = path.join(routesDir, file);
-    if (file.endsWith('.js') && file !== 'server.js') {
-        const route = require(filePath);
-        app.use(route);
-      console.log(`Carregando arquivo ${file} automaticamente!`);
-    }
+var server = app.listen(porta || 0, hostname, function () {
+  const addr = server.address();
+  const host = addr.address;
+  const port = addr.port;
+
+  console.log("Servidor rodando em http://%s:%s", hostname, port);
+  console.log("IP Obtido: http://%s:%s", host, port);
+  discordLogs("START", `Servidor rodando em http://${hostname}:${port}`);
 });
-var server = app.listen(dinamicPort, hostname , function () {
-    const addr = server.address();
-    var host = addr;
-    var port = addr;
-    console.log("Servidor rodando em http://%s:%s",hostname, port);
-    console.log("IP Obtido: http://%s:%s",host, port);
-    discordLogs("START",`Servidor rodando em http://${hostname}:${port}`)
-})
 
 function autoPages() {
   const hostJson = fs.readFileSync("data/host.json", "utf8");

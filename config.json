@@ -1,7 +1,8 @@
 {
+  "PORT": 3000,
   "wsSystem": {
     "portWS": null,
-    "enabled": true,
+    "enabled": false,
     "WSS": false
   },
   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",

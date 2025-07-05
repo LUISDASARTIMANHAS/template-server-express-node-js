@@ -135,7 +135,6 @@ const {
 require("dotenv").config();
 const ddosModule = require("./modules/ddosModule.js");
 const routesDir = __dirname;
-WSChat(app);
 // const hostname = "127.0.0.1"; só local
 // const hostname = "0.0.0.0"; Bind na placa de rede
 // const hostname = "::"; bind ipv4 e ipv6 pra fora
@@ -158,9 +157,9 @@ app.use(setCacheHeaders);
 app.use(httpsSecurityMiddleware);
 app.use(ddosModule().express);
 checkHeaderMiddleware(app);
-// app = WSChat(app); // starts HTTP + WS server on port 8080
-
 autoLoader(app);
+WSChat(); // starts HTTP + WS server on port 8080
+
 var server = app.listen(porta || 0, hostname, function () {
   const addr = server.address();
   const host = addr.address;

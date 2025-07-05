@@ -1,5 +1,4 @@
 {
-  "PORT": 3000,
   "wsSystem": {
     "portWS": null,
     "enabled": false,

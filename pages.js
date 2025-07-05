@@ -15,6 +15,7 @@ const {
   forbidden,
   formatDate,
   conversorSimEnao,
+  landingPage
 } = require("npm-package-nodejs-utils-lda");
 
 const files = __dirname + "/src/";
@@ -31,7 +32,7 @@ console.log("LOAD STATIC ITENS: " + path_pages);
 
 router.get("/", (req, res) => {
   console.log("SISTEMA <OBTER> <SITE>: " + req.url);
-  res.sendFile(indexFilePath);
+  landingPage(res);
 });
 
 router.get('/status', (req, res) => {
@@ -50,6 +51,7 @@ router.get('/status', (req, res) => {
     res.status(503).send();
   }
 });
+
 
 router.get("/host", (req, res) => {
   console.log("SISTEMA <OBTER> <SITE>: " + req.url);

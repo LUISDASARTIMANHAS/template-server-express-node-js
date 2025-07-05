@@ -119,7 +119,7 @@
 // 511 Network Authentication Required
 // Indica que o cliente precisa se autenticar para obter acesso à rede.
 const express = require("express");
-const app = express();
+let app = express();
 const path = require("path");
 const fs = require("fs");
 const {
@@ -128,14 +128,14 @@ const {
   discordLogs,
   setCacheHeaders,
   autoLoader,
+  WSChat,
 } = require("npm-package-nodejs-utils-lda");
 
 // configs e modulos extras
 require("dotenv").config();
-const wsModule = require("./modules/socket.js");
 const ddosModule = require("./modules/ddosModule.js");
 const routesDir = __dirname;
-
+WSChat(app);
 // const hostname = "127.0.0.1"; só local
 // const hostname = "0.0.0.0"; Bind na placa de rede
 // const hostname = "::"; bind ipv4 e ipv6 pra fora
@@ -154,14 +154,13 @@ app.use((req, res, next) => {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// app.use(cacheMiddleware);
 app.use(setCacheHeaders);
-app.use(wsModule);
 app.use(httpsSecurityMiddleware);
 app.use(ddosModule().express);
 checkHeaderMiddleware(app);
-autoLoader(app);
+// app = WSChat(app); // starts HTTP + WS server on port 8080
 
+autoLoader(app);
 var server = app.listen(porta || 0, hostname, function () {
   const addr = server.address();
   const host = addr.address;

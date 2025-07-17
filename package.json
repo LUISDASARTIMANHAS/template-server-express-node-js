@@ -4,7 +4,7 @@
   "description": "Este e um template de um servidor web node.js, ele tem um sistema de hosteamento dinâmico na rota ```/host``` que salva os arquivos e o caminho do usuario na pasta ```uploads``` e no banco de dados ``` /data/host.json ```",
   "main": "server.js",
   "scripts": {
-    "start": "node --watch server.js",
+    "start": "npm install && node --watch server.js",
     "start:dev": "nodemon start.js",
     "autoInstall": "npm update && npm install"
   },

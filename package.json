@@ -18,7 +18,7 @@
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.10.1",
-    "multer": "^2.0.1",
+    "multer": "^2.0.2",
     "node-cmd": "^5.0.0",
     "node-fetch": "^2.7.0",
     "nodemailer": "^7.0.3",

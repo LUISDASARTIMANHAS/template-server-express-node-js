@@ -123,13 +123,9 @@ let app = express();
 const path = require("path");
 const fs = require("fs");
 const {
-  checkHeaderMiddleware,
-  httpsSecurityMiddleware,
   discordLogs,
   applyAutoMiddlewares,
   WSChat,
-  autoLoader,
-  setCacheHeaders,
 } = require("npm-package-nodejs-utils-lda");
 
 // configs e modulos extras
@@ -153,9 +149,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(ddosModule().express);
 
-// app.use(requestLogger);
-app.use(setCacheHeaders);
-app.use(httpsSecurityMiddleware);
 applyAutoMiddlewares(app);
 WSChat(); // starts HTTP + WS server on port 8080
 

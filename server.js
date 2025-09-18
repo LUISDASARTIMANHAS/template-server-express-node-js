@@ -130,7 +130,6 @@ const {
   WSChat,
   autoLoader,
   setCacheHeaders,
-  requestLogger,
 } = require("npm-package-nodejs-utils-lda");
 
 // configs e modulos extras
@@ -157,9 +156,7 @@ app.use(ddosModule().express);
 // app.use(requestLogger);
 app.use(setCacheHeaders);
 app.use(httpsSecurityMiddleware);
-checkHeaderMiddleware(app);
-autoLoader(app);
-
+applyAutoMiddlewares(app);
 WSChat(); // starts HTTP + WS server on port 8080
 
 var server = app.listen(porta || 0, hostname, function () {

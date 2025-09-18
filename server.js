@@ -128,6 +128,9 @@ const {
   discordLogs,
   applyAutoMiddlewares,
   WSChat,
+  autoLoader,
+  setCacheHeaders,
+  requestLogger,
 } = require("npm-package-nodejs-utils-lda");
 
 // configs e modulos extras
@@ -148,9 +151,14 @@ const mes = (date.getMonth() + 1).toString().padStart(2, "0");
 const ano = date.getFullYear();
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json())
+app.use(express.json());
 app.use(ddosModule().express);
-applyAutoMiddlewares(app);
+
+// app.use(requestLogger);
+app.use(setCacheHeaders);
+app.use(httpsSecurityMiddleware);
+checkHeaderMiddleware(app);
+autoLoader(app);
 
 WSChat(); // starts HTTP + WS server on port 8080
 

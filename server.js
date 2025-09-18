@@ -126,8 +126,7 @@ const {
   checkHeaderMiddleware,
   httpsSecurityMiddleware,
   discordLogs,
-  setCacheHeaders,
-  autoLoader,
+  applyAutoMiddlewares,
   WSChat,
 } = require("npm-package-nodejs-utils-lda");
 
@@ -147,17 +146,12 @@ const dia = date.getDate().toString().padStart(2, "0") - 1;
 const dia7 = (date.getDate() - 7).toString().padStart(2, "0") - 1;
 const mes = (date.getMonth() + 1).toString().padStart(2, "0");
 const ano = date.getFullYear();
-app.use((req, res, next) => {
-  setCacheHeaders(req, res, next);
-});
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 
-app.use(setCacheHeaders);
-app.use(httpsSecurityMiddleware);
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
 app.use(ddosModule().express);
-checkHeaderMiddleware(app);
-autoLoader(app);
+applyAutoMiddlewares(app);
+
 WSChat(); // starts HTTP + WS server on port 8080
 
 var server = app.listen(porta || 0, hostname, function () {

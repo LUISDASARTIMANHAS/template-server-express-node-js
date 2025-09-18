@@ -51,5 +51,8 @@
     "color": "FF00FF",
     "footerText": null,
     "footerUrl": "logo.png"
+  },
+  "requestLogger": {
+    "enabled": true
   }
 }

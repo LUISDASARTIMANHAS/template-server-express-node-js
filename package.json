@@ -18,7 +18,7 @@
     "express-ws": "^5.0.2",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.18.1",
+    "mongoose": "^8.18.2",
     "multer": "^2.0.2",
     "node-cmd": "^5.0.0",
     "node-fetch": "^3.3.2",

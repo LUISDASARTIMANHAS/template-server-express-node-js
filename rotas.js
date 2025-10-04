@@ -1,10 +1,9 @@
-const ddos = require("ddos");
 const express = require("express");
 const router = express.Router();
-const rateLimit = require("express-rate-limit");
-const fs = require("fs");
-const { fetchGet, fetchPost, notfound } = require("npm-package-nodejs-utils-lda");
 const {
+  fetchGet,
+  fetchPost,
+  notfound,
   getRandomInt,
   getRandomBin,
   getRandomHex,

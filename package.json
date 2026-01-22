@@ -10,7 +10,7 @@
     "autoInstall": "npm update && npm install"
   },
   "dependencies": {
-    "cors": "^2.8.5",
+    "cors": "^2.8.6",
     "ddos": "^0.2.1",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",

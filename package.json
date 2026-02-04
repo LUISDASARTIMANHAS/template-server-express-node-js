@@ -22,7 +22,7 @@
     "multer": "^2.0.2",
     "node-cmd": "^5.0.0",
     "node-fetch": "^3.3.2",
-    "nodemailer": "^7.0.6",
+    "nodemailer": "^8.0.0",
     "nodemon": "^3.1.10",
     "npm-package-nodejs-utils-lda": "^1.0.44",
     "path": "^0.12.7",
